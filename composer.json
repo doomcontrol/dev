@@ -1,0 +1,16 @@
+{
+    "name":"vendor/Doctrine",
+    "autoload": {
+        "psr-0": {
+            "Doctrine": "vendor/doctrine",
+            "Beberlei": "vendor/beberlei/DoctrineExtensions/src"
+        },
+        "classmap": [
+            "core/lib/doctrine.php"
+        ]
+    },
+    "require": {
+        "doctrine/orm": "*",
+        "beberlei/DoctrineExtensions": "dev-master"
+    }
+}
