@@ -32,11 +32,6 @@ define('APP', DIR . '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . '
 define('VENDOR', DIR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 
 
-/**
- * define core path
- */
-define('BEBERLEI', DIR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'beberlei' . DIRECTORY_SEPARATOR);
-
 
 /**
  * define app version
