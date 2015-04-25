@@ -4,7 +4,6 @@
 class Component {
     
     
-    
     static function Display(){
         
         $data = [];
