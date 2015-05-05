@@ -5,7 +5,7 @@
         <ul class="reset" id="footmessage">
             <?php foreach($messages as $message):?>
             
-            <li class="reset"><h5><span class="message-sender"><?=$message->getUser()->getFullName()?>:</span><?=$message->getTitle()?></h5><abbr class="timeago" title="<?=$message->getPostDateISO()?>"><?=$message->getPostDateISO()?></abbr><?=$message->getMessage()?><i class="icon-check" title="Mark as readed" data-id="<?=$message->getID()?>">&nbsp;</i><i class="icon-pencil" title="Write Replay">&nbsp;</i></li>
+            <li class="reset"><h5><span class="message-sender"><?=$message->getUser()->getFullName()?>:</span><?=$message->getTitle()?></h5><abbr class="timeago" title="<?=$message->getPostDateISO()?>"><?=$message->getPostDateISO()?></abbr><?=  nl2br($message->getMessage())?><i class="icon-check" title="Mark as readed" data-id="<?=$message->getID()?>">&nbsp;</i></li>
             
             <?php endforeach; ?>
         </ul>

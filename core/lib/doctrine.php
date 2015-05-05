@@ -19,7 +19,7 @@ class Doctrine {
             $sqlList,
             $sqlquery;
     
-    public  $em;
+    public  $em, $em_root;
     
     public function __construct() {
         
@@ -142,11 +142,27 @@ class Doctrine {
             ),
         );
         
+        
+        
+        $connectionOptions2 = array(
+            'driver'        => $this->config['root']['driver'],
+            'user'          => $this->config['root']['user'],
+            'password'      => $this->config['root']['pass'],
+            'host'          => $this->config['root']['host'],
+            'dbname'        => $this->config['root']['database'],
+            'charset'       => $this->config['root']['charset'],
+            'driverOptions' => array(
+                'charset'   => $this->config['root']['charset'],
+            ),
+        );
+        
     
         
         global $core;
         
         $core->em = $this->em = EntityManager::create($connectionOptions, $this->doctrineConfig);
+        
+        $this->em_root = EntityManager::create($connectionOptions2, $this->doctrineConfig);
         
         
     }
@@ -182,7 +198,10 @@ class Doctrine {
         
         foreach($this->sqlList as $key=>$table){
 
-            $conn   = $this->em->getConnection();
+            if($table['root'] == false)
+                $conn   = $this->em->getConnection();
+            else 
+                $conn   = $this->em_root->getConnection();
                 
             $sql    = "SHOW TABLES LIKE '".$table['table']."'";
 
@@ -201,10 +220,17 @@ class Doctrine {
     
     private function create_schema($table){
         
-        $tool = new \Doctrine\ORM\Tools\SchemaTool($this->em);
-        $classes = array( $this->em->getClassMetadata($table['classMetaData']), );
+        if($table['root'] == false){
+                $tool = new \Doctrine\ORM\Tools\SchemaTool($this->em);
+                $classes = array( $this->em->getClassMetadata($table['classMetaData']), );
+        } else {
+                $tool = new \Doctrine\ORM\Tools\SchemaTool($this->em_root);
+                $classes = array( $this->em_root->getClassMetadata($table['classMetaData']), );
+        }
         
         $key2 = ($table['table']);
+        
+
         
         $tool->createSchema($classes);
         
@@ -218,8 +244,13 @@ class Doctrine {
     
     private function update_schema($table){
 
-        $tool       = new \Doctrine\ORM\Tools\SchemaTool( $this->em );
-        $classes    = array( $this->em->getClassMetadata($table['classMetaData']), );
+        if($table['root'] == false){
+                $tool       = new \Doctrine\ORM\Tools\SchemaTool( $this->em );
+                $classes    = array( $this->em->getClassMetadata($table['classMetaData']), );
+        } else {
+                $tool       = new \Doctrine\ORM\Tools\SchemaTool( $this->em_root );
+                $classes    = array( $this->em_root->getClassMetadata($table['classMetaData']), );
+        }
         
         $sql                = $tool->getUpdateSchemaSql( $classes );
         $count              = count($sql);
@@ -227,9 +258,7 @@ class Doctrine {
         for($i=0; $i<$count; $i++){ if(substr($sql[$i], 0, 4) == 'DROP') unset($sql[$i]); }
 
         foreach($sql as $statement) { 
-            
-            $this->em->getConnection()->exec( $statement ); 
-               
+            if($table['root'] == false){ $this->em->getConnection()->exec( $statement );  } else { $this->em_root->getConnection()->exec( $statement );  }
         }
     }
     

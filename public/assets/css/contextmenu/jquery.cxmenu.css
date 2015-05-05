@@ -1,0 +1,61 @@
+.contextmenu-holder {
+    display:none;
+    position:fixed;
+    z-index: 20000;
+    width: auto;
+    min-width: 150px;
+    min-height: 30px;
+    height: auto;
+    background: #fff;
+    padding:10px;
+    font-size:14px;
+    color:#333;
+    font-weight: 600;
+    
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border: solid 1px rgb(255,255,255);
+    box-shadow: 2px 3px 9px rgba(0,0,0,0.7);
+    -moz-box-shadow: 2px 3px 9px rgba(0,0,0,0.7);
+    -webkit-box-shadow: 2px 3px 9px rgba(0,0,0,0.7);
+}
+
+.contextmenu-holder.active {
+    display:block;
+}
+
+.contextmenu-holder li.main {
+    display:block;
+}
+
+.contextmenu-holder li.main a {
+    display:block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color:#111;
+    font-weight: 400;
+}
+
+.contextmenu-holder li:hover {
+    background: #5587e9;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    
+}
+
+.contextmenu-holder li:hover a {
+    color:#fff;
+}
+
+.cxh-title {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  cursor: default;
+  font-size: 13px;
+  border-bottom: solid 1px #DFDFDF;
+  padding-bottom: 3px;
+  font-weight: 400;
+  color: #B2B2B2;
+}

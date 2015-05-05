@@ -23,18 +23,19 @@ function wsOnMessage($clientID, $message, $messageLength, $binary) {
 		$Server->wsSend($clientID, "There isn't anyone else in the room, but I'll still listen to you. --Your Trusty Server");
 	else
 		//Send the message to everyone but the person who said it
+        
 		foreach ( $Server->wsClients as $id => $client )
 			if ( $id != $clientID ){
+                               
                             
+                               
                                 $msg = json_decode($message);
                                 $messageObj = new \stdClass();
-                                $messageObj->strOutput = $msg->txt;
-                                $messageObj->processId = $msg->processId;
+                            
+                                $messageObj->processId = $msg->pid;
                                 $messageObj->ip = $ip;
-                                $messageObj->id = $msg->id;
-                                $messageObj->url = $msg->url;
+                                $messageObj->countCLients = count($Server->wsClients);
                                 $messageObj->uid = $msg->uid;
-                                $messageObj->type = $msg->type;
                                 $messageObj->object = isset($msg->object) ? $msg->object : null;
                                 $messageObj->callback = isset($msg->callback) ? $msg->callback : null;
                                 

@@ -132,3 +132,43 @@ if(! function_exists('sub_url')){
     }
     
 }
+
+
+if(!function_exists('exception_message')){
+    
+    function exception_message($code,$title,$message, $class, $function, $file){
+        
+        $strMessage = "<h5 class=\"exception-title\">Core Exception ($code code) </h5>";
+        $strMessage.= "<h3 class=\"error-title\">$title</h3>";
+        $strMessage.= "<code class=\"error-code\">$message</code>";
+        $strMessage.= "<div class=\"error-class\"><label>Class:</label>$class</div>";
+        $strMessage.= "<div class=\"error-class\"><label>Function:</label>$function</div>";
+        $strMessage.= "<div class=\"error-class\"><label>File:</label>$file</div>";
+        
+        $dbg = debug_backtrace();
+        
+        $strMessage.= "<div class=\"error-debug\" >";
+        $strMessage.="<ul>";
+        
+        
+        if(isset($dbg[1]))
+        {
+                if(isset($dbg[1]['file'])){
+                    $strMessage.= "<li><label>FILE:</label>".$dbg[1]['file']."</li>";
+                }
+                if(isset($dbg[1]['line'])){
+                     $strMessage.= "<li><label>LINE:</label>".$dbg[1]['line']."</li>";
+                }
+        }
+        
+        
+        
+        
+        $strMessage.="</ul>";
+        $strMessage.= "</div>";
+       
+        
+        throw new Exception($strMessage);
+        
+    }
+}

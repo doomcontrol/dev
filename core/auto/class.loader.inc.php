@@ -30,8 +30,10 @@ function ClassAutoloader( $namespace ){
    if(ENVIRONMENT == 'production'){
         throw new Exception("Page not found. Please check url and try again.");
    } else {
-       $strMessage = "Class ( " . $dir . $stroPath . ".php ) is not found!";
-       throw new Exception($strMessage);
+       $errorTitle = "Class ($stroPath) not found";
+       $errorMessage = "Try to find in:<em>".CORE."</em><em>".APP."</em><em>".VENDOR."</em>";
+       
+       \exception_message(1, $errorTitle, $errorMessage, __CLASS__, __FUNCTION__, __FILE__ );
    }
 
 }

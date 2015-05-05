@@ -5,7 +5,8 @@
  * 
  * 
  * @returns {FooterItems}
- */var FooterItems = function(){
+ */
+var FooterItems = function(){
     
     var $O = this;
     
@@ -146,34 +147,8 @@
                     t.addClass(classMap.active).find(classMap.amain).addClass(classMap.active);
                 } else {
                     
-                    var msgObject = new Object();
-                    msgObject.title = '<span class=*$message-sender*$>'+$.cookie('userName')+':</span>'+title;
-                    msgObject.message = ISODateNow() + ''+message.replace(/\n/g, "<br />");
+                    $O._storeMessage(title,message);
                     
-                    msgObject.message = msgObject.message.replace(/\"/g,'*$');
-                    msgObject.title = msgObject.title.replace(/\"/g,'*$');
-                    
-                    
-                    
-                    var msg = new Object();
-                    msg.title = title;
-                    msg.message = message;
-                    
-                    $O._storeMessage(title,message, msg, msgObject);
-                    
-                    
-                    
-                    
-                   
-                    
-                    
-                    
-                    
-                    
-                    $item.parent().find(classMap.liman).removeClass(classMap.active);
-                    $item.parent().find(classMap.amain).removeClass(classMap.active);
-                    var t = $item.parent().find(classMap.liman1);
-                    t.addClass(classMap.active).find(classMap.amain).addClass(classMap.active);
                 }
             });
         }
@@ -257,17 +232,17 @@
             
                 AjaxCall(params);
             
-            $(this).parent().remove();
+                $(this).parent().remove();
             
-            var li = $item_holder.find(classMap.li);
-            var t = li.length;
-        
-            $item_holder.find(classMap.msghdspan).text(t);
-            
-            if(t === 0){
-                $item_holder.parent().removeClass(classMap.warning);
-                $item_holder.parent().find(classMap.iconcomment).removeClass(classMap.bounce);
-            }
+                var li = $item_holder.find(classMap.li);
+                var t = li.length;
+
+                $item_holder.find(classMap.msghdspan).text(t);
+
+                if(t === 0){
+                    $item_holder.parent().removeClass(classMap.warning);
+                    $item_holder.parent().find(classMap.iconcomment).removeClass(classMap.bounce);
+                }
             
         });
         
@@ -292,41 +267,74 @@
         params.title = title;
         params.message = message;
         
-        AjaxCall(params,'FotItem.callBackStore', msg, msgObject);
+        AjaxCall(params,'FotItem.callBackStore');
+        
+        var  fm = $(classMap.body).find(classMap.footmessage); 
+        var item = fm.closest('.item.message');
+        var frm = item.find('.onscreen');
+        var inpts = frm.find('input');
+        $.each(inpts,function(i,e){
+            if( $(e).prop('type') !== "button"){
+                $(e).val('');
+            }
+        });
+        var txts = frm.find('textarea');
+        $.each(txts,function(i,e){
+                $(e).val('');
+        });
+        
+        frm.find('li.main').removeClass('active');
+        frm.find('li.main:nth-child(1)').addClass('active');
         
     };
     
-    this.callBackStore = function(response, msg, msgObject){
-        if(response.status === true){
-            
-            $(classMap.body).find('.'+classMap.message).find(classMap.inptitle).val('');
-            $(classMap.body).find('.'+classMap.message).find(classMap.textmsg).val('');
-            
-             $(classMap.wrap).removeClass(classMap.blur);
-             
-             $(classMap.body).find('.footer-status .item.active').removeClass('active');
-             
-            msg.id = response.id;
-            msgObject.id = msg.id;
-            
-            msg.txt         = "";
-            msg.object      = msgObject;
-            msg.processId   = processId;
-            msg.url         = document.URL;
-            msg.uid         = sessionId;
-            msg.type        = servTypeSend.message;
-            msg.callback    = classMap.retriveMessage;
-            servX.send( classMap.message, JSON.stringify(msg) );
-             
-            msgObject.title = '<span class=\'message-sender\'>Me:</span>'+msg.title;
-            msg.object      = msgObject;
-             
-             $O.retriveMessage(msg, true);
-            
-            
-        } else {
-            
-        }
+
+
+    /**
+     * FooterItems.callBackStore
+     * ----------------------------------------
+     * Callback after saved message
+     * 
+     * @param {type} response
+     * @returns {undefined}
+     */
+    this.callBackStore = function(response){
+        
+        response.callback = "FotItem.DisplayPost";
+
+        PushLive(response);
+        $O.DisplayPost(response);
+        
+    };
+    
+    
+    
+    /**
+     * FooterItems.DisplayPost
+     * ----------------------------------------
+     * Display posted message
+     * @param {type} response
+     * @returns {undefined}
+     */
+    this.DisplayPost = function(response){
+        
+        var  fm = $(classMap.body).find(classMap.footmessage); 
+        
+        fm.find(classMap.li).removeClass('active');
+        fm.prepend(response.object.strOutput);
+        fm.find(classMap.li+':nth-child(1)').addClass('active');
+        
+        var t = fm.find(classMap.li).length;
+        
+        $(classMap.body).find(classMap.msghdspan).text(t);
+        
+        $O.msgMarkReaded(fm.parent());
+        
+        fm.parent().parent().addClass(classMap.warning);
+        
+        fm.parent().parent().find(classMap.iconcomment).addClass(classMap.bounce);
+        
+        formatDate();
     };
     
 };

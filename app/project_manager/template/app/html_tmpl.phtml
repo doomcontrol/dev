@@ -3,28 +3,25 @@
 <html>
 <head>
 	<meta charset='UTF-8' />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name=apple-mobile-web-app-status-bar-style content=black>
         <title>Live</title>
         
-        <link rel="shortcut icon" HREF="<?=  assets_url('img/favicon.ico')?>" />
+        <link rel="shortcut icon" HREF="<?=  assets_url('img/favicon.ico')?>" /> 
         
-        <link href="<?=assets_url('fonts/font-awesome/css/font-awesome.css?v='.VERSION)?>" rel="stylesheet" />
-        <link type="text/css" rel="stylesheet" href="<?=assets_url('c/navigation/css/main.css?v='.VERSION)?>" />
-        <link type="text/css" rel="stylesheet" href="<?=assets_url('t/app/css/main.css?v='.VERSION)?>" />
-	<style>
-		input, textarea {border:1px solid #CCC;margin:0px;padding:0px}
-
-		#log {width:100%;height:400px}
-		#message {width:100%;line-height:20px}
-	</style>
-        <script>
-            var app_url = '<?= site_url()?>';
-            var processId = <?=$processId?>;
-            var sessionId = <?=$userSes->getID()?>;
-        </script>
+        <link href="<?=assets_url('fonts/font-awesome/css/font-awesome.css?v='.VERSION)?>" rel="stylesheet" /> 
+        
+        <?= \resource_manager\Concate_Files::DisplayCSS() ?>
+       <?php if(!ASSETS_CONCAT): ?> 
+        <script> var app_url = '<?= site_url()?>'; var processId = <?=$processId?>; var sessionId = <?=$userSes->getID()?>; </script>
+        <?php endif; ?> 
+        <?= \resource_manager\Concate_Files::DisplayMainJS() ?>
+        
 </head>
 
-<body>
-        <div class="wrap">
+<body id="bodypage">
+        <div class="wrap animate">
             <div class="header">
                 <img src="<?=assets_url('t/app/img/logo.png')?>" />
                 
@@ -47,16 +44,13 @@
             
         </div>
     
-	<script src="<?=assets_url('js/jquery/jquery-1.11.2.min.js')?>"></script>
-        <script src="<?=assets_url('js/cookie/jquery.cookie.js')?>"></script>
-        <script src="<?=assets_url('js/core/definition.js?v='.VERSION)?>"></script>
-        <script src="<?=assets_url('js/core/functions.js?v='.VERSION)?>"></script>
-        <script src="<?=assets_url('js/moment/jquery.timeago.js?v='.VERSION)?>"></script>
-	<script src="<?=assets_url('js/server/x.js?v='.VERSION)?>"></script>
-        <script src="<?=assets_url('js/core/listener.js?v='.VERSION)?>"></script>
-        <script src="<?=assets_url('js/message/core.footer_items.js?v='.VERSION)?>"></script>
         
-        <script src="<?=assets_url('js/core/app.js')?>"></script>
+        <div class="alert-box animate-med boxsizing" ></div>
+	
+        <?= \resource_manager\Concate_Files::DisplayJS() ?>
+        
+        <?php print_r(core::$Detect->isMobilePhone) ?>
+        
 </body>
 
 </html>

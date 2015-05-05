@@ -1,6 +1,8 @@
 <div class="navigation-main-hold">
-    <ul>
+    <div class="main-mobile-menu" onclick="mainMenu.Click();"><i class="icon-reorder"></i></div>
+    <ul class="animate main-menu-list">
         <li><a href="<?=site_url()?>"><i class="icon-dashboard">&nbsp;</i>Dashboard</a></li>
+        <li><a href="<?=site_url('people')?>"><i class="icon-user-md">&nbsp;</i>Users</a></li>
         <li><a href="<?=site_url('projects')?>"><i class="icon-folder-close">&nbsp;</i>Projects</a></li>
     </ul>
 </div>

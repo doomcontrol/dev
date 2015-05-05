@@ -14,6 +14,14 @@ class core {
     public $output;
     
     public $library ;
+    
+    public $guiText;
+    
+    public $validate;
+    
+    public $detect;
+    
+    public static $Detect;
 
     
     public function __construct() {
@@ -31,18 +39,33 @@ class core {
         $this->doctrine = new lib\Doctrine();
         $this->load = new \lib\Load();
         $this->output = new \lib\Output();
+        $this->validate = new \lib\Validate();
+        $this->detect = new \lib\device\PHP\uagent_info();
+        self::$Detect = $this->detect;
         
         $this->predefine_helpers();
         
+       
         
+        $this->loadGuiText();
         
         \process\Resolve::ResolveProcess();
         
     }
     
+    
+    private function loadGuiText(){
+        
+        $guiModel = $this->em->getRepository('models\entities\Core\GuiText');
+        //TODO promeniti na dinamicki
+        $this->guiText = $guiModel->getGuiText(1);
+        
+    }
+    
+    
     public function predefine_helpers(){
         
-        $this->load->helper(array('Form','URL', 'Doctrine'));
+        $this->load->helper(array('Form','URL', 'Doctrine', 'User', 'String'));
         
     }
     
@@ -74,7 +97,7 @@ class core {
         foreach($data as $key=>$value){
             $$key = $value;
         }
-        
+        if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start();
         
         if(! $this->user)
             include APP . 'template' . DIRECTORY_SEPARATOR . 'login' . DIRECTORY_SEPARATOR . 'html_tmpl.phtml';

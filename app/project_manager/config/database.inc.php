@@ -13,6 +13,15 @@ $config['base']['charset']    = 'utf8';
 
 
 
+$config['root']['host']       = "localhost";
+$config['root']['database']   = "projectcontrol";
+$config['root']['user']       = "root";
+$config['root']['pass']       = "Dexilo2dexilo.";
+$config['root']['driver']     = "pdo_mysql";
+$config['root']['charset']    = 'utf8';
+
+
+
 
 
   

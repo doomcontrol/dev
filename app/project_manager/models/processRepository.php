@@ -30,4 +30,22 @@ class processRepository extends EntityRepository {
         return $qb->getQuery()->getOneOrNullResult();
     }
     
+    function getGuiText( $lang_id = 1){
+        
+        $qb = $this->_em->createQueryBuilder();
+        
+        $qb->select(array(
+            
+            'partial gt.{ id, guiText, guiString }',
+            'partial l.{ id,name}'
+            
+        ))->from ( 'models\entities\Core\GuiText', 'gt' )
+        ->innerJoin('gt.language', 'l')
+                
+        ->where('l.status = 1')
+        ->andWhere('l.id = :lang_id')
+        ->setParameter('lang_id', $lang_id);
+        
+        return $qb->getQuery()->getArrayResult();
+    }
 }

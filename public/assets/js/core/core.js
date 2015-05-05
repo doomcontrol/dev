@@ -1,64 +1,41 @@
 
-var Core = function(){
+function PostComponent(response){
     
-    var $O = this;
-    
-    var targetUrl = '/ajax_request';
-    
-    this.Init = function(){
-        
-    };
-    
-    this.Controler = function(){
-        
-      
-        if(sessionId === undefined){
-            
-            var param = {
-                classObj:'Login',
-                classFunc:'index',
-                action:'login'
-            };
-            
-            $O._load(param,'document','html');
-            
-        } else {
-            
+    try{ 
+        var strOutput = response.object.strOutput;
+
+        var target = $('body').find(response.object.target);
+
+        if( ! target.length) return;
+
+        switch(response.object.method){
+            case 'append':
+                target.append(strOutput);
+            break;
+            case 'prepend':
+                target.prepend(strOutput);
+            break;
+            case 'html':
+                target.html(strOutput);
+            break;
+            case 'text':
+                target.text(strOutput);
+            break;
         }
-        
-        
-    };
+
+        Highlight(response.object.id);
+    } catch(err){}
     
-    this._load = function(param, target, inject){
-        
-        $.ajax({
-            url: targetUrl,
-            type: "POST",
-            cache: false,
-            data: param,
-            success : function(html){
+};
 
-                    switch (inject){
 
-                        case 'html':
-                            $(target).html(html);
-                        break;
-                        case 'append':
-                             $(target).append(html);
-                            break;
-                        case 'prepend':
-                             $(target).prepend(html);
-                            break;
-                        case 'text':
-                             $(target).text(html);
-                        break;
-                        default: 
-                            $(target).html(html);
-                        break;
-                    }
-            }
-        });
-        
-    };
+function Highlight( id ){
+    
+    $( id ).addClass('animate');
+    $( id ).addClass('highlight');
+    
+    setTimeout(function(){
+        $( id ).removeClass('highlight');
+    },3000);
     
 };

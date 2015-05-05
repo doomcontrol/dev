@@ -53,7 +53,7 @@ class usersMessageRepository extends EntityRepository {
         
         $this->_em->flush();
         
-        if($message->getID()) return $message->getID(); else return false;
+        if($message->getID()) return $message; else return false;
         
     }
     

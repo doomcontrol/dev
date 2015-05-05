@@ -31,14 +31,20 @@ class Message {
         
         $modelMessage = $this->core->em->getRepository('models\entities\UsersMessage');
         
+        $data['message'] = $modelMessage->saveMessage($data);
         
-        $id = $modelMessage->saveMessage($data);
-
-        $data['status'] = $id ? true : false;
+        $process = \processData::getProcessData();
+        $userData = $this->session->get_session('userSes');
         
-        $data['id'] = $id;
+        $response = new \stdClass();
+        $response->pid = $process->getID();
+        $response->uid = $userData->getID();
+        $response->callback = "FotItem.callBackStore";
+        $response->object = new \stdClass();
+        $response->object->strOutput = \components\message\footer\post\Component::display( $data );
+        $response->object->status = $data['message'] ? true : false;
         
-        $this->core->output->json($data);
+        $this->core->output->json($response);
         
     }
     

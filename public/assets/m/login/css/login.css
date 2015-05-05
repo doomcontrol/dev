@@ -15,7 +15,7 @@ body {
 .wrap {
     margin: 50px auto 30px auto;
     width: 50%;
-    max-width: 300px;
+    max-width: 340px;
     padding:45px 15px 15px 15px;
     background: #343434 url(/assets/t/app/img/logo.png) 10px -3px no-repeat;
     -webkit-box-shadow: 0px 4px 10px 0px rgba(50, 50, 50, 0.75);
@@ -50,8 +50,15 @@ body {
 .login-hold input[type=submit]:hover {background: #FFD913; color:#000;}
 .message-box {
     margin:5px 0 15px 0;
-    background: #C27979;
+    background: #AB364C;
     color:#fff;
     font-size: 12px;
     padding:7px;
+}
+
+
+@media (max-width: 400px) {
+    .wrap {
+        width:80%;
+    }
 }

@@ -1,6 +1,8 @@
 <?php 
 
+
 session_start();
+
 
 
 define('SECRET_KEY', 'gT%47*OO23-2pp');
@@ -32,11 +34,22 @@ define('APP', DIR . '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . '
 define('VENDOR', DIR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR);
 
 
+/**
+ * define core path
+ */
+define('ASSETS', DIR . 'assets' . DIRECTORY_SEPARATOR);
+
 
 /**
  * define app version
  */
 define('VERSION', '0.0.0.1');
+
+/**
+ * Include constants
+ */
+require_once APP . 'config' . DIRECTORY_SEPARATOR . 'constants.inc.php';
+
 
 /**
  * Include class autoloader
@@ -52,6 +65,14 @@ $session = new lib\Session();
 
 global $session;
 
+
+/**
+ * Load Cache Assets
+ */
+\resource_manager\Concate_Files::Init();
+\resource_manager\Concate_Files::MainJS();
+\resource_manager\Concate_Files::JS();
+\resource_manager\Concate_Files::Stylesheet();
 
 
 /**

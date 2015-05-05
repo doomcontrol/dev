@@ -24,10 +24,8 @@
     private $username; 
     /** @Column(type="string", length=50, nullable=false) */
     private $password;
-    /** @Column(type="string", length=120, nullable=true) */
+    /** @Column(type="string", length=120, nullable=false) */
     private $hash;
-    /** @Column(type="integer", length=10, nullable=true) */
-    private $languageId;
     /** @Column(type="integer", length=2, nullable=false) */
     private $isOwner;
     /** @Column(type="string", length=80, nullable=false) */
@@ -38,6 +36,16 @@
      * @JoinColumn(name="languageId", referencedColumnName="id", nullable=true)
      **/
     private $language;
+    
+    
+    /**
+     * @ManyToMany(targetEntity="models\entities\User\UserGroupDefinition")
+     * @JoinTable(name="user_group",
+     *      joinColumns={@JoinColumn(name="userId", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="userGroupDefinitionId", referencedColumnName="id")}
+     *      )
+     * */
+    private $user_groups_definition;
   
     
     
@@ -58,6 +66,7 @@
     function getLanguage() { return $this->language; }
     function getIsOwner() { return $this->isOwner; }
     function getEmail(){ return $this->email;}
+    function getUserGroupDefinition(){ return $this->user_groups_definition; }
     
     
     function setName($val){ $this->fname = $val; }
@@ -65,10 +74,11 @@
     function setStatus($status = true) { $this->status = $status ? 1 : 0; }
     function setUsername($val){ $this->username = $val;}
     function setPassword($val, $md5 = true){ $this->password = $md5 ? \md5($val) : $val; }
-    function setHash($val){ $this->hash = $val; }
+    function setHash(){ $this->hash = md5(\time()); }
     function setLanguage( \models\entities\Core\Language $val ) { $this->language = $val; }
     function setIsOwner($bool = false){ $this->isOwner = $bool ? 1 : 0;}
     function setEmail( $val ) { $this->email = $val; }
+    function setUsrGroupsDefinition(\models\entities\User\UserGroupDefinition $user_group_definition ) { $this->user_groups_definition[] = $user_group_definition; }
     
   
     

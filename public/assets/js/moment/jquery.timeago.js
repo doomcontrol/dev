@@ -1,25 +1,9 @@
-/**
- * Timeago is a jQuery plugin that makes it easy to support automatically
- * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
- *
- * @name timeago
- * @version 1.4.1
- * @requires jQuery v1.2.3+
- * @author Ryan McGeary
- * @license MIT License - http://www.opensource.org/licenses/mit-license.php
- *
- * For usage and examples, visit:
- * http://timeago.yarp.com/
- *
- * Copyright (c) 2008-2015, Ryan McGeary (ryan -[at]- mcgeary [*dot*] org)
- */
+
 
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
     define(['jquery'], factory);
   } else {
-    // Browser globals
     factory(jQuery);
   }
 }(function ($) {
@@ -96,16 +80,16 @@
         return string.replace(/%d/i, value);
       }
 
-      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) ||
-        seconds < 90 && substitute($l.minute, 1) ||
-        minutes < 45 && substitute($l.minutes, Math.round(minutes)) ||
-        minutes < 90 && substitute($l.hour, 1) ||
-        hours < 24 && substitute($l.hours, Math.round(hours)) ||
-        hours < 42 && substitute($l.day, 1) ||
-        days < 30 && substitute($l.days, Math.round(days)) ||
-        days < 45 && substitute($l.month, 1) ||
-        days < 365 && substitute($l.months, Math.round(days / 30)) ||
-        years < 1.5 && substitute($l.year, 1) ||
+      var words = seconds < 45 && substitute($l.seconds, Math.round(seconds)) || 
+        seconds < 90 && substitute($l.minute, 1) || 
+        minutes < 45 && substitute($l.minutes, Math.round(minutes)) || 
+        minutes < 90 && substitute($l.hour, 1) || 
+        hours < 24 && substitute($l.hours, Math.round(hours)) || 
+        hours < 42 && substitute($l.day, 1) || 
+        days < 30 && substitute($l.days, Math.round(days)) || 
+        days < 45 && substitute($l.month, 1) || 
+        days < 365 && substitute($l.months, Math.round(days / 30)) || 
+        years < 1.5 && substitute($l.year, 1) || 
         substitute($l.years, Math.round(years));
 
       var separator = $l.wordSeparator || "";
@@ -115,11 +99,11 @@
 
     parse: function(iso8601) {
       var s = $.trim(iso8601);
-      s = s.replace(/\.\d+/,""); // remove milliseconds
+      s = s.replace(/\.\d+/,""); 
       s = s.replace(/-/,"/").replace(/-/,"/");
       s = s.replace(/T/," ").replace(/Z/," UTC");
-      s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
-      s = s.replace(/([\+\-]\d\d)$/," $100"); // +09 -> +0900
+      s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); 
+      s = s.replace(/([\+\-]\d\d)$/," $100"); 
       return new Date(s);
     },
     datetime: function(elem) {
@@ -127,14 +111,11 @@
       return $t.parse(iso8601);
     },
     isTime: function(elem) {
-      // jQuery's `is()` doesn't play well with HTML5 in IE
-      return $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
+      return $(elem).get(0).tagName.toLowerCase() === "time";
     }
   });
 
-  // functions that can be called via $(el).timeago('action')
-  // init is default when no action is given
-  // functions are called with context of a single element
+
   var functions = {
     init: function(){
       var refresh_el = $.proxy(refresh, this);
@@ -167,7 +148,6 @@
     if(!fn){
       throw new Error("Unknown function name '"+ action +"' for timeago");
     }
-    // each over objects here and call the requested function
     this.each(function(){
       fn.call(this, options);
     });
@@ -175,9 +155,8 @@
   };
 
   function refresh() {
-    //check if it's still visible
+
     if(!$.contains(document.documentElement,this)){
-      //stop if it has been removed
       $(this).timeago("dispose");
       return this;
     }
@@ -191,7 +170,7 @@
       }
     }
     return this;
-  }
+  };
 
   function prepareData(element) {
     element = $(element);
@@ -205,15 +184,15 @@
       }
     }
     return element.data("timeago");
-  }
+  };
 
   function inWords(date) {
     return $t.inWords(distance(date));
-  }
+  };
 
   function distance(date) {
     return (new Date().getTime() - date.getTime());
-  }
+  };
 
   // fix for IE6 suckage
   document.createElement("abbr");

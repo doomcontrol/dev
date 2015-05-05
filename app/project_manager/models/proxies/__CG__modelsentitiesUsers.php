@@ -64,10 +64,10 @@ class Users extends \models\entities\Users implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'languageId', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language');
+            return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language', '' . "\0" . 'models\\entities\\Users' . "\0" . 'user_groups_definition');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'languageId', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language');
+        return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language', '' . "\0" . 'models\\entities\\Users' . "\0" . 'user_groups_definition');
     }
 
     /**
@@ -297,6 +297,17 @@ class Users extends \models\entities\Users implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getUserGroupDefinition()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserGroupDefinition', array());
+
+        return parent::getUserGroupDefinition();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setName($val)
     {
 
@@ -352,12 +363,12 @@ class Users extends \models\entities\Users implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setHash($val)
+    public function setHash()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHash', array($val));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setHash', array());
 
-        return parent::setHash($val);
+        return parent::setHash();
     }
 
     /**
@@ -391,6 +402,17 @@ class Users extends \models\entities\Users implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', array($val));
 
         return parent::setEmail($val);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUsrGroupsDefinition(\models\entities\User\UserGroupDefinition $user_group_definition)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUsrGroupsDefinition', array($user_group_definition));
+
+        return parent::setUsrGroupsDefinition($user_group_definition);
     }
 
 }

@@ -39,6 +39,8 @@ class Submit_Login {
         // GET USER FROM CLIENT DATABASE ------------------------------------------------------
         $user = $this->userModel->findByLogin($username,$password);
         
+        
+        
         // OWNER PROCESS DATA -----------------------------------------------------------------
         $processData    = \processData::getProcessData();
         $ownerUsername  =  $processData->getOwner()->getUsername();
@@ -80,6 +82,23 @@ class Submit_Login {
             $userObj->setHash( $user->getHash() );
             $userObj->setisOwner( $user->getIsOwner() );
             $userObj->setEmail( $user->getEmail() );
+            
+            $modules = array();
+            $privilegies = array();
+            foreach( $user->getUserGroupDefinition() as $definition){
+                foreach($definition->getModules() as $module){
+                    $modules[] = $module;
+                }
+                foreach($definition->getPrivilegies() as $privilegy){
+                    $privilegies[] = $privilegy;
+                }
+            }
+            
+            $userObj->setModules( $modules );
+            $userObj->setPrivilegies( $privilegies );
+            $userObj->setProcessID($processData->getID());
+            
+            //print_r($user->getUserGroupDefinition()); die();
             
             $this->session->set_session('userSes', $userObj);
             

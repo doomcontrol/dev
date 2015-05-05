@@ -7,26 +7,88 @@
  * @returns {undefined}
  */
 function ListenerServer(retriveObject){
-  
-  var json = null;
-  
-  try{
-      
-    json = jQuery.parseJSON(retriveObject);
 
-    var pid = parseInt($.cookie('processId'));
+    var json  = null;
+    var pid   = parseInt($.cookie('processId'));
+  
+    try{
+        json = retriveObject;
+
+    if(parseInt(json.processId) !== parseInt(pid)) return;
     
-    if(json.processId !== pid) return;
-    if(json.callback.length > 0){  var c = json.callback + "('"+JSON.stringify(json)+"')"; eval(c); return; }
+    
+    if(json.callback.length > 0){  
+        eval(json.callback)(json);
+        return; 
+    }
 
-  }catch(err){ }
-  
-   if(json === null) json = retriveObject;
+  }catch(err){ console.log(err); }
+};
+
+
+
+/**
+ * Server Pull
+ * --------------------------------------------------------
+ * 
+ * @returns {undefined}
+ */
+$(function(){
+    
+    var msg = new Object();
+
+        msg.processId           = processId;
+        msg.url                 = document.URL;
+        msg.uid                 = sessionId;
+        msg.object              = new Object();
+        msg.object.strOutput    = "Connecting...";
+        msg.callback            = 'writeServerInfo';
+    
+        ListenerServer(msg);
+        
+        servX = new ServerX( servXaddress );
+
    
-   if(json)
-   switch(json.type){
-       case servTypeSend.info:
-            writeServerInfo(json);
-       break;
-   }
-}
+
+   
+    servX.bind('open', function() {
+        var msg = new Object();
+
+        msg.processId           = processId;
+        msg.url                 = document.URL;
+        msg.uid                 = sessionId;
+        msg.object              = new Object();
+        msg.object.strOutput    = '<i class="icon-globe green">&nbsp;</i> Connected.';
+        msg.callback            = 'writeServerInfo';
+
+        ListenerServer( msg );
+    });
+
+   
+    servX.bind('close', function( data ) {
+        
+        var msg = new Object();
+
+        msg.processId           = processId;
+        msg.url                 = document.URL;
+        msg.uid                 = sessionId;
+        msg.object              = new Object();
+        msg.object.strOutput    = '<i class="icon-globe red">&nbsp;</i> Disconnected.';
+        msg.callback            = 'writeServerInfo';
+            
+        ListenerServer( msg );
+    });
+
+
+    servX.bind('message', function( payload ) {
+
+        try{
+        payload = JSON.parse(payload);
+        } catch(err){}
+        ListenerServer( payload );
+    });
+
+    servX.connect();
+    
+    
+});

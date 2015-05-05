@@ -1,4 +1,15 @@
+function PushLive(object){
 
+    servX.send( 'message',object );
+    
+};
+
+
+function writeServerInfo(json){
+   
+    $('#server_info').html(json.object.strOutput);
+    
+};
 
 /**
  * ISODateString
@@ -8,13 +19,13 @@
  * ----------------------------------------------
  */
 function ISODateString(d){
- function pad(n){return n<10 ? '0'+n : n}
+ function pad(n){return n<10 ? '0'+n : n;}
  return d.getUTCFullYear()+'-'
       + pad(d.getUTCMonth()+1)+'-'
       + pad(d.getUTCDate())+'T'
       + pad(d.getUTCHours())+':'
       + pad(d.getUTCMinutes())+':'
-      + pad(d.getUTCSeconds())+'Z'};
+      + pad(d.getUTCSeconds())+'Z'; };
 
 
 
@@ -84,14 +95,137 @@ function AjaxCall( params, callback, sendData, sendData2 ){
         type: "POST",  url:  ajaxUrl,  data: params,
         success: function(_response) {
             if(callback !== undefined){
+               
                 eval(callback)(_response, sendData, sendData2);
                  
             }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            //TODO change this with message
+            /*//TODO change this with message*/
             return false;
         }
     });
     
-}
+};
+
+
+
+/**
+ * AlertMessage
+ * -----------------------------------------
+ * 
+ * 
+ * @param {type} string
+ * @returns {undefined}
+ */
+function AlertMessage(string){
+    
+    var params = {
+        classObj:'Guitext',
+        classFunct:'index',
+        guiString:string
+    };
+    
+    AjaxCall(params,'_displayMessage');
+};
+
+
+/**
+ * _displayMessage
+ * -----------------------------------------
+ * 
+ * @param {type} response
+ * @returns {undefined}
+ */
+function _displayMessage(response){
+    try{
+        
+        var str = response.strOutput;
+
+        var ab = $('body').find('.alert-box');
+        
+        ab.text(str);
+        ab.append('<i class="icon-remove" />');
+        
+        ab.addClass('active');
+        
+        $('body').on('click', function(){
+            ab.removeClass('active');
+        });
+        
+        ab.find('i').unbind().on('click',function(){
+            ab.removeClass('active');
+        });
+        
+        
+    }catch(e){
+        
+    };
+};
+
+
+
+/**
+ * validateEmail
+ * -----------------------------------------
+ * 
+ * @param {type} email
+ * @returns {Boolean}
+ */
+function validateEmail(mail)   
+{  
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))  
+    {  
+       return (true); 
+    };
+    return (false);
+};
+
+
+
+
+
+function LivePost(response){
+    
+    if(response.state === false){
+        AlertMessage(response.message);
+    } else {
+        PushLive(response);
+        PostComponent(response);
+        
+    };
+    
+    
+};
+
+
+
+
+function DisableBodyScroll(boolean){
+    if(boolean){
+        $('html, body').css({
+            'overflow': 'hidden',
+            'height': '100%'
+        });
+    } else {
+        $('html, body').css({
+            'overflow': 'auto',
+            'height': 'auto'
+        });
+    };
+};
+
+
+
+
+function launchIntoFullscreen(element) {
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+};
