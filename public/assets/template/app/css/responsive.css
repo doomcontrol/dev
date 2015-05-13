@@ -1,0 +1,155 @@
+@media (max-width: 1500px) {
+	.carts {
+		-webkit-column-count: 3;
+		-moz-column-count: 3;
+		column-count: 3;
+                display:list-item;
+	}
+}
+
+@media (max-width: 1110px) {
+	.carts {
+		-webkit-column-count: 2;
+		-moz-column-count: 2;
+		column-count: 2;
+                display:list-item;
+	}
+}
+
+
+@media (max-width: 600px) {
+	.carts {
+		-webkit-column-count: 1;
+		-moz-column-count: 1;
+		column-count: 1;
+                display:block;
+	}
+}
+
+
+@media (max-width: 400px) {
+    .wrap {
+        width:100%;
+        margin:0 !important;
+        margin-top:0px !important;
+        top:-20px;
+    }
+    .mobile-menu {display:block;}
+    .mobile-menu i {font-size:36px;}
+    .main-mobile-menu {display:block;}
+    .onscreen {
+        top:20px !important;
+        left: 10px !important;
+        margin-top: 0 !important;
+        margin-left: 0px !important;
+    }
+    .sortable {min-height: 0; }
+    .contextmenu-holder {
+        top:-5px !important;
+        left:0 !important;
+      
+    }
+    .footer-status .item .item-holder li{font-size: 15px;}
+    
+    .page-main-navigation {
+        z-index: 4000;
+    }
+    .page-main-navigation .mobile-menu {
+        display:block;
+        position:fixed;
+        width: 90px;
+        height:90px;
+        left:50%;
+        bottom:-45px;
+        background: #111;
+        color:#75bdd1;
+        border-radius: 45px;
+        -moz-border-radius: 45px;
+        -webkit-border-radius: 45px;
+        margin-left:-45px;
+        z-index: 5000 !important;
+        overflow: hidden;
+        background: rgb(112,112,112);
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzcwNzA3MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM1JSIgc3RvcC1jb2xvcj0iIzNhM2EzYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+        background: -moz-linear-gradient(top, rgba(112,112,112,1) 0%, rgba(58,58,58,1) 35%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(112,112,112,1)), color-stop(35%,rgba(58,58,58,1)));
+        background: -webkit-linear-gradient(top, rgba(112,112,112,1) 0%,rgba(58,58,58,1) 35%);
+        background: -o-linear-gradient(top, rgba(112,112,112,1) 0%,rgba(58,58,58,1) 35%);
+        background: -ms-linear-gradient(top, rgba(112,112,112,1) 0%,rgba(58,58,58,1) 35%);
+        background: linear-gradient(to bottom, rgba(112,112,112,1) 0%,rgba(58,58,58,1) 35%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#707070', endColorstr='#3a3a3a',GradientType=0 );
+        }
+        .page-main-navigation .mobile-menu i {
+            display:block; position:absolute;left: 50%; top:10px; width: 36px; height:36px;margin-left: -16px; overflow: hidden; line-height: 36px;
+        }
+        .page-main-navigation li {display:none;}
+        .page-main-navigation .list-menu {
+            display:block; position: fixed;
+            top:60px;
+            left:-360px;
+            padding-left:50px;
+            bottom:40px;
+            width: 310px;
+            z-index:1;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background: rgb(60, 157, 184);
+            
+        }
+        .page-main-navigation.active .list-menu {-webkit-transform: translate(90%,0);-moz-transform: translate(90%,0);transform: translate(90%,0);}
+        .wrap {left:0;}
+        /*.wrap.active {left: 360px;}*/
+        /*.wrap.r-active {left: -360px;}*/
+        .page-main-navigation.active .list-menu li {
+            display:block;
+            opacity: 1;
+            width:300px;
+            background: transparent;
+        }
+        .page-main-navigation.active .list-menu li a {
+            color:#fff;
+        }
+        .header .header-name {display:none;}
+        .quick-user {right: 0;width:180px;}
+        .quick-user .drop-hold {z-index: 3000;}
+        .quick-user .drop-hold a.link-br {font-size: 14px; display:block;padding:12px 0;display:block;}
+        
+        /* MAIN MENU */
+        .navigation-main-hold {
+            border-bottom: none;
+            background: none;
+        }
+        .navigation-main-hold ul {
+            display:block;
+            position:fixed;
+            width: 360px;
+            top:60px;
+            right:-360px;
+            bottom: 40px;
+            z-index:1;
+            background: rgb(209, 86, 11);
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            padding-top: 60px;
+        }
+        .navigation-main-hold ul.active {
+
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-transform: translate(-90%,0);-moz-transform: translate(-90%,0);transform: translate(-90%,0);
+        }
+        .navigation-main-hold.active .main-mobile-menu {
+            /*position:fixed;*/
+        }
+        .navigation-main-hold ul li {
+            display:block;
+            width:auto;
+            float:none;
+        }
+        .navigation-main-hold ul li {margin-bottom: 8px !important;background: transparent !important; height: auto !important;}
+        .navigation-main-hold ul li a, .navigation-main-hold ul li a i {font-size:20px !important; background: transparent !important; color:#fff;}
+        .navigation-main-hold ul li a {padding-left: 50px !important; display:inline-block; width:auto; padding-bottom: 0px;height: auto !important;}
+        .navigation-main-hold ul li a i {left:15px;top:10px; }
+        .navigation-main-hold ul li:hover, .navigation-main-hold ul li:hover a, .navigation-main-hold ul li a:hover, .navigation-main-hold ul:hover li a:hover {background: #333 !important; color:#fff !important;}
+}

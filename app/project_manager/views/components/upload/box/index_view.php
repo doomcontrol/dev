@@ -1,7 +1,7 @@
 <div class="removable-mask active"></div>
 <div class="removable onscreen uploadbox boxshadow active">
     
-    <form id="adduser1430464649" method="post" action="http://codeion.dev.live.com/call" data-class="Upload" data-funct="DoUpload" class="fullscreen boxsizing">
+    <form id="adduser1430464649" method="post" action="/call" data-class="Upload" data-funct="DoUpload" data-service="<?=$service?>" data-id="<?=$id?>" class="fullscreen boxsizing">
         <div class="upload-box boxsizing" id="dropbox_<?=time()?>" data-processing="Processing...">
             <div class="uploadclick fullscreen">
                 <span class="init-text-upload">

@@ -1,10 +1,114 @@
 
 
+var InlineEdit = function(){
+  
+    var $O = this;
+  
+    this.Open = function(e){
+      
+        
+        var $e              = $(e);
+        
+        var Data            = new Object();
+        
+        Data.e              = $e;
+        Data.targetInline   = $( $e.data('inline') );
+        Data.targetFields   = $( $e.data('fields') );
+        Data.targetMask     = Data.targetInline.prev('.inline-mask');
+        Data.submit         = Data.targetInline.find('input[type=submit]');
+        Data.cancel         = Data.targetInline.find('.inline-cancel');
+        Data.firstInput     = Data.targetFields.find('input:first');
+        
+        
+        $('body').find('.inline-edit-item').removeClass('active');
+        $('body').find('.inline-edit').removeClass('active');
+        $('body').find('.inline-mask').removeClass('active');
+        
+        
+        Data.targetInline.addClass('active');
+        Data.targetFields.addClass('active');
+        Data.targetMask.addClass('active');
+        
+
+        Data.firstInput.focus();
+        var tmpStr = Data.firstInput.val();
+        Data.firstInput.val('');
+        Data.firstInput.val(tmpStr);
+        
+        Data.submit.unbind().on('click',function(){
+            
+           $O.submit( Data );
+           $O.close(Data);
+            
+        });
+        
+        Data.cancel.unbind().on('click', function(){ $O.close( Data ); });
+        Data.targetMask.unbind().on('click', function(){ $O.close( Data ); });
+    };
+    
+    this.submit = function(Data){
+
+        var params = new Object();
+        params.classObj = Data.e.data('class');
+        params.classFunct = Data.e.data('funct');
+        params.id = Data.e.data('id');
+
+        Data.targetFields.find('input').each(function(){
+            if( $(this).prop('type') !== 'submit'){ params[$(this).prop('name')] = $(this).val(); }
+        });
+        
+        Data.targetFields.find('select').each(function(){
+            console.log( $(this) );
+            params[$(this).prop('name')] = $(this).find('option').filter(":selected").val();
+        });
+
+        AjaxCall(params,'PushLive');
+        
+    };
+    
+    
+    this.close = function( Data ){
+        
+        Data.targetInline.removeClass('active');
+        Data.targetFields.removeClass('active');
+        Data.targetMask.removeClass('active');
+        
+    };
+    
+    
+    
+};
 
 
-
-
-
+var GridSortable = function (){
+    
+    this.Init = function(){
+        if(isMobile === false){
+            $( ".sortable" ).sortable({
+                connectWith:'.sortable',
+                scroll: true,
+                scrollSensitivity: 10,
+                scrollSpeed: 5,
+                stop: function( event, ui ) {
+                    
+                    var params          = new Object();
+                    params.classObj     = ui.item.data('sortableclass');
+                    params.classFunct   = ui.item.data('sortablefunct');
+                    params.id           = ui.item.data('id');
+                    params.target       = ui.item.parent().parent().prop('id');
+                    params.group        = ui.item.parent().parent().data('id');
+                    params.previd       = ui.item.prev().prop('id');
+                   
+                    AjaxCall(params,'PushLive');
+                    
+                },
+            });
+        }
+        //$( ".sortable" ).disableSelection();
+        
+    };
+    
+};
 
 
 /**
@@ -61,11 +165,11 @@ var StepControl = function(){
 var ContextMenu = function(){
     
     
-    this.ClickAction = function( e ){
+    this.ClickAction = function( e, id ){
         
         var event = $(e);
         
-        eval(event.data('call'))();
+        eval(event.data('call'))(event.data('service'), id);
         
         return false;
     };
@@ -101,8 +205,8 @@ var PageMenu = function(){
         $('#body').touchwipe({
             wipeLeft: function() { $O.OpenMenu('left'); },
             wipeRight: function() { $O.OpenMenu('right'); },
-            wipeUp: function() { $('#server_info').text("up"); },
-            wipeDown: function() { $('#server_info').text("down"); },
+            wipeUp: function() {  },
+            wipeDown: function() {  },
             min_move_x: 150,
             min_move_y: 150,
             preventDefaultEvents: false
@@ -179,6 +283,14 @@ var MainMenu = function(){
 
 
 
+var hideOutScreenElements = function (){
+    
+    
+    
+};
+
+
+
 
 var FotItem = new FooterItems();
 var StepCtrl = new StepControl();
@@ -188,12 +300,19 @@ var Context = new ContextMenu();
 var uploadManager = new UploadManager();
 var pageMenu = new PageMenu();
 var mainMenu = new MainMenu();
+var inlineEdit = new InlineEdit();
+var gridSortable = new GridSortable();
+var screenElements = new hideOutScreenElements();
 
 $(function(){
     
     FotItem.Init();
     SelBox.Init();
     SF.Init();
+
+    if($('body').find('.sortable').length){
+        gridSortable.Init();
+    }
 
     pageMenu.Swipe();
     
@@ -208,3 +327,12 @@ $(function(){
 
     
 });
+
+
+function reInit(){
+    $('.contextmenu').contextmenu();
+    
+    if($('body').find('.sortable').length){
+        gridSortable.Init();
+    }
+}

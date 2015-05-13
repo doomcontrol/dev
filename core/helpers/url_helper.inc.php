@@ -60,6 +60,21 @@ if(!function_exists('assets_url')){
 }
 
 
+
+/**
+ * AVATAR URL
+ */
+if(!function_exists('avatar_url')){
+    
+    function avatar_url($path){
+        
+        return site_url( sprintf('images/users/%s/',\processData::getProcessData()->getUrlShort()) . $path);
+        
+    }
+    
+}
+
+
 /**
  * URI URL
  */
@@ -171,4 +186,15 @@ if(!function_exists('exception_message')){
         throw new Exception($strMessage);
         
     }
+}
+
+
+if(!function_exists('is_mobile')){
+function is_mobile(){
+
+    $Detect =  new \lib\device\PHP\uagent_info();
+    
+    
+    return $Detect->isMobilePhone ? true : false;
+}
 }

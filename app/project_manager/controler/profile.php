@@ -22,6 +22,20 @@ class Profile {
     }
     
     
+    
+    /**
+     * indexAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Profile
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @return \stdClass
+     */
     public function indexAction(){
         
         $data = [];

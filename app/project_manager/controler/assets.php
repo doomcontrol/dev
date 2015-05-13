@@ -4,9 +4,12 @@
 
 class Assets {
     
+    
     public $core, $session, $version;
     
     public $resource;
+    
+    
     
     public function __construct() {
         
@@ -16,21 +19,23 @@ class Assets {
         global $session;
         $this->session = $session;
         
-        
-        
         $this->loadResourceConf();
     }
-    
-    
-    
-    
+
     
     
     /**
      * loadResourceConf
      * ----------------------------------------------
-     * 
      * Load Assets Resources array files
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
      */
     private function loadResourceConf(){
         
@@ -54,11 +59,16 @@ class Assets {
     
     
     
-    
-    
-    
     /**
      * main_jsAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
      * ----------------------------------------------
      * 
      * Concat javascript on top in html with dinamic data
@@ -71,15 +81,19 @@ class Assets {
         
         $this->loadFile($key, $this->resource['jstop'], 'Content-type: application/javascript', ';');
     }
-    
-    
-    
-    
-    
+
 
     
     /**
      * jsAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
      * ----------------------------------------------
      * 
      * Concat javascript on bottom in html 
@@ -90,15 +104,19 @@ class Assets {
         
         $this->loadFile($key, $this->resource['js'], 'Content-type: application/javascript', ';');
     }
-    
-    
-    
-    
-    
+
     
     
     /**
      * cssAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
      * ----------------------------------------------
      * 
      * Concat css files 
@@ -109,15 +127,18 @@ class Assets {
         
         $this->loadFile($key, $this->resource['css'],'Content-type: text/css');
     }
+
     
     
-    
-    
-    
-    
-    
-    /**
-     * loadFile
+     /** loadFile
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
      * ----------------------------------------------
      * 
      * Load or generate cache file
@@ -133,7 +154,7 @@ class Assets {
             
         } else {
         
-            $this->writeFile($key, $filesArray, $prechar);
+            $this->writeFile($key, $filesArray, $prechar, $header == "Content-type: text/css" ? 'CSS' : 'JS');
             
             Header('Location: '.$_SERVER['PHP_SELF']);
             Exit(); //optional
@@ -141,72 +162,66 @@ class Assets {
         
         die();
     }
+
     
     
-    
-    
-    
-    
-    /**
-     * writeBaseData
-     * -------------------------------------------
+     /** writeBaseData
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * ----------------------------------------------
      * 
      * Write to js dinamic data
      */
     private function writeBaseData(){
-        
-        $procesData = \processData::getProcessData();
-        $userSes = $this->session->get_session('userSes');
-        
-        $string = '';
-        $string.= 'var app_url = \''.site_url().'\';';
-        $string.= 'var processId = \''.$procesData->getID().'\';';
-        $string.= 'var sessionId = '.$userSes->getID().';';
-        
-        echo $string;
+        echo user_vars(\processData::getProcessData());
     }
-    
-    
-    
+
     
     
     /**
      * writeFile
-     * ----------------------------------------------------------
+     * ----------------------------------------
+     * 06.05.2015
      * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * ----------------------------------------------
      * Write cache file on server
      * 
      * @param type $key
      * @param type $files
      * @param type $prechar
      */
-    private function writeFile($key,$files, $prechar = ''){
-        
-        
-        
+    private function writeFile($key,$files, $prechar = '', $type=''){
+
         $str = '';
         
         foreach ($files as $file) {
             
             $string = $prechar . file_get_contents(ASSETS.$file);
             
-            if(ASSETS_MINIFIED) $string = $this->slib_compress_script( $this->stripPhpComments($string));
-            
+            if(ASSETS_MINIFIED) $string = $this->slib_compress_script( $string, $type );
             
             $str .= $string;
         }
         
         
         $filePath = APP.'cache'.DIRECTORY_SEPARATOR.$key . (ASSETS_GZIP ? '.gz' : '');
+        
         $cacheFile = fopen($filePath, "w") or die("Unable to open file! " . $filePath);
         
         if(ASSETS_GZIP) header("Content-Encoding: gzip");
         
-        if(ASSETS_GZIP){
-                
-            $str = gzdeflate($str,9);
-        }
-            
+        if(ASSETS_GZIP) $str = gzdeflate($str,9);
         
         fwrite($cacheFile, $str);
         
@@ -214,92 +229,37 @@ class Assets {
         
         header_remove("Content-Encoding: gzip");
     }
-    
-    
-    
-    
-    
-    /**
-     * stripPhpComments
-     * ----------------------------------------------------
-     * 
-     * Clean output string
-     * 
-     * @param type $code
-     * @return type
-     */
-    private function stripPhpComments($code)
-    {
-        $tokens = token_get_all($code);
-        $strippedCode = '';
 
-        while($token = array_shift($tokens)) {        
-            if((is_array($token) && token_name($token[0]) !== 'T_COMMENT') 
-                || !is_array($token)) 
-            {
-                $strippedCode .= is_array($token) ? $token[1] : $token;
-            }
-        }
-        return $strippedCode;        
-    }
     
     
+    
+   
+
     
     
     
     /**
      * slib_compress_script
-     * ----------------------------------------------------
+     * ----------------------------------------
+     * 06.05.2015
      * 
+     * @category controler
+     * @name controler.Assets
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * ----------------------------------------------
      * Clean output string
      * 
      * @param type $buffer
      * @return type
      */
-    private function slib_compress_script( $buffer ) {
-
-        // JavaScript compressor by John Elliot <jj5@jj5.net>
-
-        $replace = array(
-          '#\'([^\n\']*?)/\*([^\n\']*)\'#'  => "'\1/'+\'\'+'*\2'",  // remove comments from ' strings
-          '#\"([^\n\"]*?)/\*([^\n\"]*)\"#'  => '"\1/"+\'\'+"*\2"',  // remove comments from " strings
-          '#/\*.*?\*/#s'                    => "",                  // strip C style comments
-          '#[\r\n]+#'                       => "\n",                // remove blank lines and \r's
-          '#\n([ \t]*//.*?\n)*#s'           => "\n",                // strip line comments (whole line only)
-          '#([^\\])//([^\'"\n]*)\n#s'       => "\\1\n",
-          '#\n\s+#'                         => "\n",                // strip excess whitespace
-          '#\s+\n#'                         => "\n",                // strip excess whitespace
-          '#(//[^\n]*\n)#s'                 => "\\1\n",             // extra line feed after any comments left
-          '#/([\'"])\+\'\'\+([\'"])\*#'     => "/*",                // restore comments in strings,
-        );
-
-        $search = array_keys( $replace );
-        $script = preg_replace( $search, $replace, $buffer );
-
-        $replace = array(
-          "&&\n" => "&&",
-          "||\n" => "||",
-          "(\n"  => "(",
-          ")\n"  => ")",
-          "[\n"  => "[",
-          "]\n"  => "]",
-          "+\n"  => "+",
-          ",\n"  => ",",
-          "?\n"  => "?",
-          ":\n"  => ":",
-          ";\n"  => ";",
-          "{\n"  => "{",
-      //  "}\n"  => "}", (because I forget to put semicolons after function assignments)
-          "\n]"  => "]",
-          "\n)"  => ")",
-          "\n}"  => "}",
-          "\n\n" => "\n"
-        );
-
-        $search = array_keys( $replace );
-        $script = str_replace( $search, $replace, $script );
-
-        return trim( $script );
+    private function slib_compress_script( $string, $type ) {
+        
+        $this->core->load->library('Minify');
+        
+        return $this->core->library->minify->exec( $string, $type );
+        
     }
     
 }

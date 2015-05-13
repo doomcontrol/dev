@@ -6,7 +6,7 @@ use \Doctrine\Common\ClassLoader,
     \Doctrine\Common\Cache\ArrayCache,
     \Doctrine\DBAL\Logging\EchoSQLLogger;
 
-class Doctrine {
+class Doctrine extends \lib\doctrine\Queries {
     
     
     protected 
@@ -24,6 +24,8 @@ class Doctrine {
     public function __construct() {
         
         $this->register();
+        
+        parent::__construct();
         
     }
     
@@ -190,10 +192,64 @@ class Doctrine {
         $this->check_tables();
     }
     
+    private $insertAll;
+    private $numCurentRevision ;
+    private $numClientRevision;
     
     
+    /**
+     * check_tables
+     * ----------------------------------------
+     * Check client revision number and if doesn not match do update or create sql schema and check revision sql strings with current revision and execute all older then current revision
+     * 
+     * @return type
+     */
     private function check_tables(){
+
+        $this->insertAll = false;
+        $this->numCurentRevision = 0;
+        $this->numClientRevision = 0;
         
+        
+        
+        $sql    = "SHOW TABLES LIKE 'revision_client'";
+
+        $stmt   = $this->em->getConnection()->prepare($sql);  $stmt->execute();
+        
+        $result = $stmt->fetchAll(); 
+        
+        $revisionModel = $this->em->getRepository('models\entities\Core\Revision');
+        
+        $curentRevision = $revisionModel->getRevision();
+
+        if(! $curentRevision ) return;
+
+        $this->numCurentRevision =  $curentRevision->getRevision();
+        
+        
+        
+        if(count($result)){
+
+            
+
+            $clientRevision = $revisionModel->getClientRevision();
+
+            if(! $clientRevision ){
+                $this->insertAll = true;
+                $this->numClientRevision = 0;
+               
+            } else {
+                $insertAll = false;
+                $this->numClientRevision = $clientRevision->getRevision();
+               
+            }
+
+            if($this->numClientRevision == $this->numCurentRevision && $this->insertAll == false) return;
+        
+        } else {
+           
+            $this->numClientRevision = 0;
+        }
         
         
         foreach($this->sqlList as $key=>$table){
@@ -210,11 +266,17 @@ class Doctrine {
             try{ 
                 $result = $stmt->fetchAll(); 
                 
-                if(count($result)){  $this->update_schema($table); } else { $this->create_schema($table);  }
+                if(count($result)){  $this->update_schema($table); } else {  $this->create_schema($table); }
                     
             } catch(\PDOException $e)  { die('nije proslo aut update'); }
         }
+        
+        $this->insert_Empty();
+        
+        $revisionModel->updateClientRevision($this->numCurentRevision);
     }
+    
+    
     
     
     
@@ -229,21 +291,16 @@ class Doctrine {
         }
         
         $key2 = ($table['table']);
-        
 
         
         $tool->createSchema($classes);
-        
-        foreach($this->sql as $key => $sql)
-            if($key == $key2)
-                foreach($sql as $query) \doctrine_sql($query); 
             
     }
     
     
     
     private function update_schema($table){
-
+        
         if($table['root'] == false){
                 $tool       = new \Doctrine\ORM\Tools\SchemaTool( $this->em );
                 $classes    = array( $this->em->getClassMetadata($table['classMetaData']), );
@@ -258,10 +315,27 @@ class Doctrine {
         for($i=0; $i<$count; $i++){ if(substr($sql[$i], 0, 4) == 'DROP') unset($sql[$i]); }
 
         foreach($sql as $statement) { 
+            
             if($table['root'] == false){ $this->em->getConnection()->exec( $statement );  } else { $this->em_root->getConnection()->exec( $statement );  }
+            
         }
     }
     
+    
+    private function insert_Empty(){
+        
+        $forInsert = array();
+        
+        $checked = array();
+        
+        foreach($this->sql as $key => $sql)
+                foreach($sql as $k=>$value)
+                    foreach($value as $query) 
+                        if($this->insertAll || $this->numClientRevision < $this->numCurentRevision)
+                            if($k > $this->numClientRevision) \doctrine_sql ( $query );
+                        
+            
+    }
     
     
 }

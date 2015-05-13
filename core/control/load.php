@@ -55,11 +55,24 @@ class Load {
                     if($num <= count($args)){ return call_user_func_array(array($class, $funct), $args); }
                     else {
                         $class= new \controler\Error404();
-                        return $class->{'indexAction'}('Page not found. Please check url and try again.');
+                        return $class->{'indexAction'}(PAGE_NOT_FOUND_MESSAGE);
                     }
                 } else { 
                     // -- METHOD NOT FOUND FROM URL - LOAD DEFAULT METHOD
-                    return $class->{'indexAction'}(); 
+                    try{
+                        
+                        $method = new \ReflectionMethod($class, 'indexAction');
+                        $num = $method->getNumberOfParameters();
+                        
+                        if($num > 0){ throw new \Exception(PAGE_NOT_FOUND_MESSAGE); }
+                        
+                        return $class->{'indexAction'}(); 
+                        
+                        
+                    } catch(\Exception $e) {
+                        $class= new \controler\Error404();
+                        return $class->{'indexAction'}($e->getMessage());
+                    }
                 }
                 
             } else if(count($splitPath) == 1){
@@ -87,7 +100,7 @@ class Load {
                              } else {
                                 // -- FUNCTION ARGUMENTS NOT MATCH PASED ARGS 
                                 $class= new \controler\Error404();
-                                return $class->{'indexAction'}($e->getMessage());
+                                return $class->{'indexAction'}(PAGE_NOT_FOUND_MESSAGE);
                              }
                         } catch(\Exception $e){
                             // -- CONTROLER FORM URL NOT FOUND

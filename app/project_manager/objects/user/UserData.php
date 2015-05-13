@@ -11,7 +11,9 @@ class UserData {
                 $email,
                 $privilegies,
                 $modules,
-                $procesId;
+                $procesId,
+                $userGroupID,
+                $userGroupName;
     
     public function __construct() {
         
@@ -61,5 +63,13 @@ class UserData {
     public function setProcessID($val){$this->procesId = $val;}
     public function getProcessID(){ return $this->procesId;}
     
+    public function setUserGroup( $group ){
+        
+        $this->userGroupID  = $group['id'];
+        $this->userGroupName = $group['name'];
+    }
+    
+    public function getUserGroupID(){ return $this->userGroupID; }
+    public function getUserGroupName(){ return $this->userGroupName; }
     
 }

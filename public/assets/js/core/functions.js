@@ -1,4 +1,27 @@
 function PushLive(object){
+    
+    console.log('Push Live:');
+    console.log(object);
+    
+    try{
+        
+        if(object.object.callback){
+            eval(object.object.callback)(object);
+        }
+ 
+    } catch(err){
+        console.log(err);
+    }
+    
+    try{
+        
+        if(object.callback){
+            eval(object.callback)(object);
+        }
+ 
+    } catch(err){
+        console.log(err);
+    }
 
     servX.send( 'message',object );
     
@@ -9,6 +32,26 @@ function writeServerInfo(json){
    
     $('#server_info').html(json.object.strOutput);
     
+};
+
+
+function SendLive(response){
+
+    try{
+        if(response.state === undefined && response.status !== undefined){
+            response.state = response.status;
+        }
+    } catch(err){}
+    
+    if(response.state === false){
+        
+        AlertMessage(response.message);
+    } else {
+
+        PushLive(response);
+        //PostComponent(response);
+        
+    };
 };
 
 /**
@@ -95,8 +138,9 @@ function AjaxCall( params, callback, sendData, sendData2 ){
         type: "POST",  url:  ajaxUrl,  data: params,
         success: function(_response) {
             if(callback !== undefined){
-               
+                console.log('Ajax Call:' + callback);
                 eval(callback)(_response, sendData, sendData2);
+                console.log('Ajax Call Callback :' + callback);
                  
             }
         },
@@ -184,23 +228,6 @@ function validateEmail(mail)
 
 
 
-
-function LivePost(response){
-    
-    if(response.state === false){
-        AlertMessage(response.message);
-    } else {
-        PushLive(response);
-        PostComponent(response);
-        
-    };
-    
-    
-};
-
-
-
-
 function DisableBodyScroll(boolean){
     if(boolean){
         $('html, body').css({
@@ -229,3 +256,5 @@ function launchIntoFullscreen(element) {
     element.msRequestFullscreen();
   }
 };
+
+

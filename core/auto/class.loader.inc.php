@@ -28,7 +28,7 @@ function ClassAutoloader( $namespace ){
    
    
    if(ENVIRONMENT == 'production'){
-        throw new Exception("Page not found. Please check url and try again.");
+        throw new Exception(PAGE_NOT_FOUND_MESSAGE);
    } else {
        $errorTitle = "Class ($stroPath) not found";
        $errorMessage = "Try to find in:<em>".CORE."</em><em>".APP."</em><em>".VENDOR."</em>";

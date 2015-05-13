@@ -16,6 +16,20 @@ class Error404 {
     }
     
     
+    /**
+     * indexAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Error404
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $message
+     * @return \stdClass
+     */
     public function indexAction( $message = "Undifined error message"){
         
         $data = [];

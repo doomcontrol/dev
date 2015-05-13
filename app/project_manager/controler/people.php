@@ -22,6 +22,22 @@ class People  extends People_List {
     }
     
     
+    
+    /**
+     * indexAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @desc Page
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @return \stdClass
+     */
     public function indexAction(){
         
         $data = [];
@@ -35,20 +51,38 @@ class People  extends People_List {
         $objOutput->content     = $this->core->load->view('people/index', $data, true);
         $objOutput->status      = true;
         
-        
-        
         return $objOutput;
         
     }
     
     
+    
+    /**
+     * AddNewAjax
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @desc New user form
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $firstName
+     * @param type $lastName
+     * @param type $email
+     * @param type $group
+     */
     public function AddNewAjax($firstName, $lastName, $email, $group){
-        
-        $response = new \stdClass();
-        
+
         $validate = $this->validateNewUserData($firstName, $lastName, $email, $group); // valid data return null
         
         if($validate){
+            
+            $response = new \stdClass();
+            
             $response->state        = false;
             $response->message      = $validate['error'];
             $response->description  = $validate['description'];
@@ -62,6 +96,21 @@ class People  extends People_List {
     }
     
     
+    /**
+     * user_listAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @desc New user form
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @return \stdClass
+     */
     public function user_listAction(){
         
         
@@ -78,6 +127,22 @@ class People  extends People_List {
     }
     
     
+    
+    /**
+     * manage_user_groupsAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @desc New user form
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @return \stdClass
+     */
     public function manage_user_groupsAction(){
         
         
@@ -91,6 +156,88 @@ class People  extends People_List {
         $objOutput->status      = true;
         
         return $objOutput;
+    }
+    
+    
+    
+    /**
+     * EditEmailAjax
+     * ----------------------------------------
+     * 10.05.2015
+     * 
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $id
+     * @param type $value
+     */
+    public function EditEmailAjax($id,$value){
+        
+        $this->core->output->json( \controler\people\EditEmail::Service()->Store($id, $value) );
+        
+    }
+    
+    
+    
+    /**
+     * EditNameAjax
+     * ----------------------------------------
+     * 10.05.2015
+     * 
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $id
+     * @param type $first_name
+     * @param type $last_name
+     */
+    public function EditNameAjax($id,$first_name, $last_name){
+        
+        $this->core->output->json(\controler\people\EditName::Service()->Store($id, $first_name, $last_name) );
+        
+    }
+    
+    
+    
+    public function PositionAjax( $id, $groupId, $target, $prevId = null  ){
+        
+        $this->core->output->json(\controler\people\EditPosition::Service()->Store($id, $prevId, $groupId, $target ) );
+        
+    }
+    
+    
+    
+    
+    
+    /**
+     * EditGroupAjax
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @desc Page
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $id
+     * @param type $groupId
+     * @return \stdClass
+     */
+    public function EditGroupAjax($id, $groupId){
+        
+       $this->core->output->json( \controler\people\EditGroup::Service()->Store($id, $groupId) );
+        
     }
     
 }

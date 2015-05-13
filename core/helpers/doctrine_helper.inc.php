@@ -35,6 +35,31 @@ if(! function_exists('doctrine_sql')){
 }
 
 
+if(! function_exists('doctrine_sql_select')){
+    
+    function doctrine_sql_select($sql, $params = array()){
+        
+        global $core;
+            
+        $stmt = $core->em->getConnection()->prepare($sql);
+
+        $i = 0;
+
+        foreach($params as $p){
+            $i++;
+            $stmt->setParameter($i, $p);
+        }
+
+        $stmt->execute();
+        
+        return $stmt;
+        
+    }
+    
+    
+}
+
+
 if(!function_exists('generate_hash')){
     
     function generate_hash(){

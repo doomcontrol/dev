@@ -5,6 +5,10 @@ $sqlList = [];
 $db1 = 'projectcontrol_' . \sub_url();
 $db2 = 'projectcontrol';
 
+$sqlList['revision']['classMetaData']                = 'models\entities\Core\Revision';
+$sqlList['revision']['table']                        = 'revision';
+$sqlList['revision']['db']                           =  $db2;
+$sqlList['revision']['root']                         =  true;
 
 
 $sqlList['process']['classMetaData']                = 'models\entities\Core\Process';
@@ -43,6 +47,12 @@ $sqlList['modules']['db']                           =  $db2;
 $sqlList['modules']['root']                         =  true;
 
 
+/* CLIENTS TABLE */
+
+$sqlList['revision_client']['classMetaData']                  = 'models\entities\Revision';
+$sqlList['revision_client']['table']                          = 'revision_client';
+$sqlList['revision_client']['db']                             =  $db1;
+$sqlList['revision_client']['root']                           =  false;
 
 
 $sqlList['users']['classMetaData']                  = 'models\entities\Users';
@@ -56,12 +66,6 @@ $sqlList['usergroupdefinition']['table']            = 'user_group_definition';
 $sqlList['usergroupdefinition']['db']               =  $db1;
 $sqlList['usergroupdefinition']['root']             =  false;
 
-/*
-$sqlList['usergroup']['classMetaData']              = 'models\entities\User\UserGroup';
-$sqlList['usergroup']['table']                      = 'user_group';
-$sqlList['usergroup']['db']                         =  $db1;
-$sqlList['usergroup']['root']                       =  false;
-*/
 
 $sqlList['usersmessage']['classMetaData']           = 'models\entities\UsersMessage';
 $sqlList['usersmessage']['table']                   = 'usersMessage';
@@ -80,12 +84,6 @@ $sqlList['privilegies']['table']                    = 'privilegies';
 $sqlList['privilegies']['db']                       =  $db1;
 $sqlList['privilegies']['root']                     =  false;
 
-/*
-$sqlList['privilegyModules']['classMetaData']       = 'models\entities\Privilegy\Module';
-$sqlList['privilegyModules']['table']               = 'privilegyModules';
-$sqlList['privilegyModules']['db']                  =  $db1;
-$sqlList['privilegyModules']['root']                =  false;
-*/
 
 
 

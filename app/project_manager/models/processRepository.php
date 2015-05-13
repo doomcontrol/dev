@@ -48,4 +48,48 @@ class processRepository extends EntityRepository {
         
         return $qb->getQuery()->getArrayResult();
     }
+    
+    function getRevision(){
+        
+        $qb = $this->_em->createQueryBuilder();
+        
+        $qb->select(array(
+            
+            'partial r.{ id, revision }'
+            
+        ))->from ( 'models\entities\Core\Revision', 'r' )
+                
+        ->orderBy('r.id','DESC')
+        ->setMaxResults(1);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+        
+    }
+    
+    function getClientRevision(){
+        
+        $qb = $this->_em->createQueryBuilder();
+        
+        $qb->select(array(
+            
+            'partial r.{ id, revision }'
+            
+        ))->from ( 'models\entities\Revision', 'r' )
+                
+        ->orderBy('r.id','DESC')
+        ->setMaxResults(1);
+        
+        return $qb->getQuery()->getOneOrNullResult();
+        
+    }
+    
+    function updateClientRevision($revision){
+        
+        $entity = new \models\entities\Revision();
+        $entity->setRevision( $revision );
+        
+        $this->_em->persist( $entity );
+        $this->_em->flush();
+        
+    }
 }

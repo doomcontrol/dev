@@ -5,11 +5,13 @@ var UploadManager = function(){
     var $O = this;
     var object;
     
-    this.Open = function(){
+    this.Open = function(_service, _id){
         
         var params = {
             classObj:'Upload',
             classFunct:'BoxView',
+            service:_service,
+            id:_id
         };
     
         AjaxCall(params, UM + "_callbackDisplay");
@@ -29,12 +31,14 @@ var UploadManager = function(){
             object.drop         = $('body').find('.upload-box');
             object.dropId       = object.drop.prop('id');
             object.input        = object.drop.find('input[type=file]');
+            object.service      = object.popup.find('form').data('service');
+            object.id           = object.popup.find('form').data('id');
             object.mask.click   = function(){ object.mask.on('click',function(){ $O._removeBox(); }); };
                 
             
             object.mask.click();
             
-            $O._dropEvents( object )
+            $O._dropEvents( object );
 
     };
     
@@ -108,10 +112,10 @@ var UploadManager = function(){
     
     
     this._sendFiles = function(fileList, object){
-  
+
         for (var i = 0; i < fileList.length; i++) {
           
-            new FileUpload(fileList[i], object);
+            new FileUpload(fileList[i], object, processId);
         }
         
         
@@ -121,9 +125,9 @@ var UploadManager = function(){
 
 
 
-function FileUpload(file, object) {
+function FileUpload(file, object, _processId) {
         
-        console.log(file);
+      
         
         var self = this;
         
@@ -151,6 +155,10 @@ function FileUpload(file, object) {
         var reader  = new FileReader();  
        
         var formData = new FormData();
+        formData.append('classObj', 'Upload');
+        formData.append('classFunct', 'Upload');
+        formData.append('service', object.service);
+        formData.append('id', object.id);
         formData.append('file', file);
         
 
@@ -173,12 +181,50 @@ function FileUpload(file, object) {
             }
         };
         
-        xhr.open('POST', '/', true);
+        xhr.open('POST', '/call', true);
+        xhr.setRequestHeader('Accept', 'application/json')
         xhr.setRequestHeader('X-Requested-With','XMLHttpRequest');
+        
+        var pid = _processId;
         
         xhr.onload = function(e) {
             if (this.status == 200) {
-               /*// console.log(this.response);*/
+              
+                
+                
+                try{
+                    var json = JSON.parse(this.response);
+                    
+                    var msg                 = new Object();
+                    
+                    msg.object              = new Object;
+                    msg.object.strOutput    = json.strOutput;
+                    msg.object.target       = json.live.target;
+                    msg.object.method       = json.live.method;
+                    msg.object.id           = json.live.id;
+                    
+                    msg.pid         = pid;
+                    msg.url         = document.URL;
+                    msg.uid         = sessionId;
+                    msg.callback    = json.live.callback;
+                    
+                    object.popup.remove();
+                    object.mask.fadeOut('slow',function(){ object.mask.remove(); });
+                    
+                    setTimeout(function(){
+                        PushLive(msg);
+                        PostComponent(msg);
+                    },500);
+                    
+                    
+                } catch(err){
+                    
+                    console.log(err);
+                    
+                }
+                
+                
+                
             } else {
                 console.log(e);
                 console.log(this);

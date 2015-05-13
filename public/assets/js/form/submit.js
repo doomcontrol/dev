@@ -57,7 +57,7 @@ var SubmitForm = function(){
             params['classObj'] = form.data('class');
             params['classFunct'] = form.data('funct');
             
-            AjaxCall(params, 'LivePost');
+            AjaxCall(params, 'SendLive');
             
             form.find('input, textarea ').each(function(){
                  if( $(this).prop('type') !== 'button' && $(this).prop('type') !== 'submit' && $(this).prop('type') !== 'radio' && $(this).prop('type') !== 'checkbox'){

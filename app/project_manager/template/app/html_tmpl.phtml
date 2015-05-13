@@ -10,11 +10,11 @@
         
         <link rel="shortcut icon" HREF="<?=  assets_url('img/favicon.ico')?>" /> 
         
-        <link href="<?=assets_url('fonts/font-awesome/css/font-awesome.css?v='.VERSION)?>" rel="stylesheet" /> 
+       
         
         <?= \resource_manager\Concate_Files::DisplayCSS() ?>
        <?php if(!ASSETS_CONCAT): ?> 
-        <script> var app_url = '<?= site_url()?>'; var processId = <?=$processId?>; var sessionId = <?=$userSes->getID()?>; </script>
+        <script><?= user_vars() ?></script>
         <?php endif; ?> 
         <?= \resource_manager\Concate_Files::DisplayMainJS() ?>
         
@@ -23,7 +23,7 @@
 <body id="bodypage">
         <div class="wrap animate">
             <div class="header">
-                <img src="<?=assets_url('t/app/img/logo.png')?>" />
+                <img src="<?=assets_url('img/main/logo.png')?>" />
                 
                 <?= \components\process\headername\Component::Display() ?>
                 
@@ -49,7 +49,6 @@
 	
         <?= \resource_manager\Concate_Files::DisplayJS() ?>
         
-        <?php print_r(core::$Detect->isMobilePhone) ?>
         
 </body>
 

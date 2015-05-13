@@ -20,6 +20,21 @@ class Message {
     }
     
     
+    
+    /**
+     * StoreAjax
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Message
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $title
+     * @param type $message
+     */
     public function StoreAjax( $title, $message){
         
         $data = [];
@@ -49,7 +64,19 @@ class Message {
     }
     
     
-    
+    /**
+     * MarkReadedAjax
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Message
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $id
+     */
     public function MarkReadedAjax( $id ){
         
         $modelMessage = $this->core->em->getRepository('models\entities\UsersMessage');

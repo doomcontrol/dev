@@ -100,3 +100,42 @@ if( !function_exists('is_user_have_module')){
     }
     
 }
+
+
+
+if(! function_exists('user_vars')){
+    
+    function user_vars(){
+
+        global $session; 
+        
+        $userSes = ($session->get_session('userSes'));
+        
+        $privilegies = $session->get_session('userSes')->getPrivilegies();
+        $privilegy = reset( $privilegies ); 
+        
+        $string = '';
+        $string.= 'var app_url = \''.site_url().'\';';
+        $string.= 'var processId = '.$userSes->getProcessID().';';
+        $string.= 'var sessionId = '.$userSes->getID().';';
+        
+        
+        $string.= 'var readP = ' .$privilegy->getRead(). ';';
+        $string.= 'var writeP = ' .$privilegy->getWrite(). ';';
+        $string.= 'var editP = ' .$privilegy->getEdit(). ';';
+        $string.= 'var deleteP = ' .$privilegy->getDelete(). ';';
+        $string.= 'var uploadP = ' .$privilegy->getUpload(). ';';
+        $string.= 'var viewInternalP = ' .$privilegy->getViewInternal(). ';';
+        $string.= 'var manageAllP = ' .$privilegy->getManageAll(). ';';
+        $string.= is_mobile() ? 'var isMobile = true;' : 'var isMobile = false;';
+        
+        $string.= 'var modules = ['; 
+        foreach($userSes->getModules() as $module): 
+            $string.="'".($module->getName())."'".','; 
+        endforeach; 
+        $string.='];';
+        
+        return $string;
+    }
+    
+}

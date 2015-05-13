@@ -5,7 +5,25 @@ class Ajax_Request {
     
     private $classObj, $classFunct;
     
+    
+    /**
+     * indexAction
+     * ----------------------------------------------
+     * Load Assets Resources array files
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Ajax_Request
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     */
     public function indexAction(){
+        
+        // DIE IF IS NOT FROM AJAX
+        if(empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest')  die();
+        
         
         $classObj           = null;
         $classFunct         = null;
@@ -25,10 +43,22 @@ class Ajax_Request {
         $this->loadObject();
         
         die();
-        
     }
     
     
+    /**
+     * loadObject
+     * ----------------------------------------------
+     * Load Assets Resources array files
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Ajax_Request
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     */
     private function loadObject(){
         
         $nmsp = '\controler\\' . $this->classObj;

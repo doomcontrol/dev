@@ -1,4 +1,23 @@
+function LivePost(response){
 
+    try{
+        if(response.state === undefined && response.status !== undefined){
+            response.state = response.status;
+        }
+    } catch(err){}
+    
+    if(response.state === false){
+        console.log('ddd');
+        AlertMessage(response.message);
+    } else {
+
+        PushLive(response);
+        PostComponent(response);
+        
+    };
+    
+    
+};
 
 /**
  * Listener Function
@@ -7,6 +26,9 @@
  * @returns {undefined}
  */
 function ListenerServer(retriveObject){
+
+    console.log('ListenerServer:');
+    console.log(retriveObject);
 
     var json  = null;
     var pid   = parseInt($.cookie('processId'));

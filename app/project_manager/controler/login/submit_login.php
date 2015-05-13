@@ -17,7 +17,7 @@ class Submit_Login {
         
         $this->loginControl = $loginControl;
         
-        $this->userModel = $core->em->getRepository('models\entities\users');
+        $this->userModel = $core->em->getRepository('models\entities\Users');
         
     }
     
@@ -86,6 +86,7 @@ class Submit_Login {
             $modules = array();
             $privilegies = array();
             foreach( $user->getUserGroupDefinition() as $definition){
+                $userObj->setUserGroup( array('id'=>$definition->getID(), 'name'=>$definition->getName()) );
                 foreach($definition->getModules() as $module){
                     $modules[] = $module;
                 }
@@ -97,6 +98,7 @@ class Submit_Login {
             $userObj->setModules( $modules );
             $userObj->setPrivilegies( $privilegies );
             $userObj->setProcessID($processData->getID());
+            
             
             //print_r($user->getUserGroupDefinition()); die();
             

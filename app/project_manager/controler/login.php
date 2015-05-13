@@ -12,6 +12,9 @@ class Login {
     
     public $status;
     
+    
+    
+    
     public function __construct() {
         global $core;
         $this->core = $core;
@@ -20,6 +23,19 @@ class Login {
     }
     
     
+    /**
+     * indexAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Login
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @return \stdClass
+     */
     public function indexAction(){
         
         $data = [];
@@ -48,8 +64,4 @@ class Login {
         return $objOutput;
         
     }
-    
-    
-    
-    
 }

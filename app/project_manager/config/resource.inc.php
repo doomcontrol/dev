@@ -3,17 +3,19 @@
 $resource = [];
 
 
+$resource['css'][] = "fonts/font-awesome/css/font-awesome.css";
+$resource['css'][] = "css/jquery/jquery-ui.css";
+$resource['css'][] = "template/app/css/main.css";
 
-$resource['css'][] = "t/app/css/main.css";
-
-$resource['css'][] = "c/navigation/css/main.css";
-$resource['css'][] = "t/app/css/select.css";
+$resource['css'][] = "css/components/navigation/main.css";
+$resource['css'][] = "template/app/css/select.css";
 $resource['css'][] = "css/contextmenu/jquery.cxmenu.css";
-$resource['css'][] = "t/app/css/responsive.css";
+$resource['css'][] = "template/app/css/responsive.css";
 //$resource['css'][] = "css/jquerymobile/jquery.mobile-1.4.5.min.css";
 
 
 $resource['jstop'][] = "js/jquery/jquery-1.11.2.min.js";
+$resource['jstop'][] = "js/jquery/jquery-ui.js";
 $resource['jstop'][] = "js/cookie/min.jquery.cookie.js";
 $resource['jstop'][] = "js/core/definition.js";
 

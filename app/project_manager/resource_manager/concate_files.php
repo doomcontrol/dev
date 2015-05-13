@@ -12,6 +12,8 @@ class Concate_Files {
         self::$session = $session;
         
         include_once CORE . 'helpers' . DIRECTORY_SEPARATOR . 'form_helper.inc.php';
+        include_once CORE . 'helpers' . DIRECTORY_SEPARATOR . 'user_helper.inc.php';
+        include_once CORE . 'helpers' . DIRECTORY_SEPARATOR . 'url_helper.inc.php';
     }
     
     
@@ -47,16 +49,9 @@ class Concate_Files {
         
         if(!ASSETS_CONCAT) return;
         
-        $userData = self::$session->get_session('userSes');
-        
         $key = md5('main.js?v='.VERSION);
-        
-        $string = '';
-        $string.= 'var app_url = \''.self::url_origin().'\';';
-        $string.= 'var processId = \''.$userData->getProcessID().'\';';
-        $string.= 'var sessionId = '.$userData->getID().';';
             
-        self::loadFile($key,'Content-type: application/javascript', $string);
+        self::loadFile($key,'Content-type: application/javascript', user_vars() );
     }
     
     

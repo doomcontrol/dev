@@ -1,7 +1,21 @@
 <?php 
 
 
+
+session_cache_limiter('none');
 session_start();
+
+$uri = $_SERVER['REQUEST_URI'];
+
+
+if(strpos($uri, '/image') === 0){
+     if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE'])){
+
+        header('HTTP/1.1 304 Not Modified');
+        die();
+    }
+}
+
 
 
 
@@ -38,6 +52,25 @@ define('VENDOR', DIR . '..' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARAT
  * define core path
  */
 define('ASSETS', DIR . 'assets' . DIRECTORY_SEPARATOR);
+
+
+/**
+ * define image path
+ */
+define('IMAGES', DIR . 'images' . DIRECTORY_SEPARATOR);
+
+
+
+/**
+ * define image path
+ */
+define('IMAGES_CLIENTS', IMAGES . 'users' . DIRECTORY_SEPARATOR . '%s' . DIRECTORY_SEPARATOR);
+
+
+/**
+ * define core path
+ */
+define('STORAGE', DIR . '..' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR);
 
 
 /**

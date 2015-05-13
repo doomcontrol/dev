@@ -1,0 +1,64 @@
+html,body {
+    margin:0;
+    padding:0;
+}
+
+body {
+    background: #D35D0D;
+    background-size: cover;
+    font-family: Arial,sans-serif;
+    font-size:13px;
+}
+
+* {position:relative;}
+
+.wrap {
+    margin: 50px auto 30px auto;
+    width: 50%;
+    max-width: 340px;
+    padding:45px 15px 15px 15px;
+    background: #343434 url(/assets/img/main/logo.png) 10px -3px no-repeat;
+    -webkit-box-shadow: 0px 4px 10px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 4px 10px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 4px 10px 0px rgba(50, 50, 50, 0.75);
+}
+
+.login-hold {margin-top:40px;}
+.login-hold h1 {color:rgb(220,220,220);margin-bottom: 15px;}
+.login-hold label{display:block; color:#FCAB10;}
+.login-hold input {
+  padding: 5px;
+  background: #2A2A2A;
+  color: #FDB111;
+  border: solid 1px rgb(31, 31, 31);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 8px;
+  outline: none;
+}
+.login-hold input[type=submit]{
+    width:auto;
+    background: #D1540A;
+    color:#fff;
+    cursor:pointer;
+    border: none;
+    padding:5px 15px;
+    margin-top:20px;
+}
+.login-hold input[type=submit]:hover {background: #FFD913; color:#000;}
+.message-box {
+    margin:5px 0 15px 0;
+    background: #AB364C;
+    color:#fff;
+    font-size: 12px;
+    padding:7px;
+}
+
+
+@media (max-width: 400px) {
+    .wrap {
+        width:80%;
+    }
+}

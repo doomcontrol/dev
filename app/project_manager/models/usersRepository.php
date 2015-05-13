@@ -15,7 +15,7 @@ class usersRepository extends EntityRepository {
         $qb = $this->_em->createQueryBuilder();
         
         $qb->select(array(
-            'partial u.{id, fname, lname,hash, username, isOwner, email}',
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
             'partial ugd.{id,name,status,icon}',
             'partial ugdp.{id,name,read,write,edit,delete,upload,viewInternal,manageAll}'
         ))->from ( 'models\entities\Users', 'u' )
@@ -87,7 +87,7 @@ class usersRepository extends EntityRepository {
         $qb = $this->_em->createQueryBuilder();
         
         $qb->select(array(
-            'partial u.{id, fname, lname,hash, username, isOwner, email}',
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
         ))->from ( 'models\entities\Users', 'u' )
         ->where('u.email = :email')
         ->setParameter('email', $email );
@@ -114,20 +114,47 @@ class usersRepository extends EntityRepository {
         
     }
     
-    
-    function getAll(){
+    function getFirstUserInGroup($group_id){
         
-         $qb = $this->_em->createQueryBuilder();
+        $qb = $this->_em->createQueryBuilder();
         
          $qb->select(array(
-            'partial u.{id, fname, lname,hash, username, isOwner, email}',
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
             'partial ugd.{id,name,status,icon}',
             'partial m.{id,name,status}',
             'partial ugdp.{id,name,read,write,edit,delete,upload,viewInternal,manageAll}'
         ))->from ( 'models\entities\Users', 'u' )
         ->leftJoin('u.user_groups_definition','ugd')
         ->leftJoin('ugd.privilegies','ugdp')
-        ->leftJoin('ugd.modules','m');
+        ->leftJoin('ugd.modules','m')
+        ->where('ugd.id = :gid')
+        ->orderBy('u.position','ASC')
+        ->setMaxResults(1)
+        ->setParameter('gid', $group_id);
+        
+        $query = $qb->getQuery();
+        $query->setHint(Query::HINT_REFRESH, true);
+
+
+        return $query->getOneOrNullResult();
+        
+    }
+    
+    
+    function getAll(){
+        
+         $qb = $this->_em->createQueryBuilder();
+        
+         $qb->select(array(
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
+            'partial ugd.{id,name,status,icon}',
+            'partial m.{id,name,status}',
+            'partial ugdp.{id,name,read,write,edit,delete,upload,viewInternal,manageAll}'
+        ))->from ( 'models\entities\Users', 'u' )
+        ->leftJoin('u.user_groups_definition','ugd')
+        ->leftJoin('ugd.privilegies','ugdp')
+        ->leftJoin('ugd.modules','m')
+        ->orderBy('u.position','ASC');
         
         $query = $qb->getQuery();
         $query->setHint(Query::HINT_REFRESH, true);
@@ -171,6 +198,12 @@ class usersRepository extends EntityRepository {
         
         if($user->getID()){
             
+            $user->setPosition( $user->getID() );
+            
+            $this->_em->persist($user);
+        
+            $this->_em->flush();
+            
             $response->state = true;
             $response->message = null;
             $response->object = $user;
@@ -187,6 +220,31 @@ class usersRepository extends EntityRepository {
     
     
     
+    function storeAvatar($id, $avatar){
+        
+        $user = $this->_em->getReference('models\entities\Users', $id);
+        
+        if($user){
+            $oldAvatar = $user->getAvatar();
+            
+            $user->setAvatar($avatar);
+            
+            $this->_em->persist( $user );
+            $this->_em->flush();
+            
+            return $oldAvatar;
+            
+        }
+        
+        return null;
+        
+    }
+    
+    function setOrder($id, $prev_id){
+        
+        
+        
+    }
     
     
 }

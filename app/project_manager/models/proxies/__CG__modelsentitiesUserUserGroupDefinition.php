@@ -64,10 +64,10 @@ class UserGroupDefinition extends \models\entities\User\UserGroupDefinition impl
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'id', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'name', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'status', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'privilegy_modules');
+            return array('__isInitialized__', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'id', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'name', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'status', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'icon', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'modules', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'privilegies');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'id', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'name', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'status', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'privilegy_modules');
+        return array('__isInitialized__', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'id', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'name', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'status', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'icon', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'modules', '' . "\0" . 'models\\entities\\User\\UserGroupDefinition' . "\0" . 'privilegies');
     }
 
     /**
@@ -209,12 +209,34 @@ class UserGroupDefinition extends \models\entities\User\UserGroupDefinition impl
     /**
      * {@inheritDoc}
      */
-    public function getPrivilegyModules()
+    public function getModules()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPrivilegyModules', array());
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getModules', array());
 
-        return parent::getPrivilegyModules();
+        return parent::getModules();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getprivilegies()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getprivilegies', array());
+
+        return parent::getprivilegies();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIcon()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIcon', array());
+
+        return parent::getIcon();
     }
 
     /**
@@ -242,12 +264,34 @@ class UserGroupDefinition extends \models\entities\User\UserGroupDefinition impl
     /**
      * {@inheritDoc}
      */
-    public function setPrivilegyModules(\models\entities\Privilegy\Module $module)
+    public function setModule($module)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPrivilegyModules', array($module));
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setModule', array($module));
 
-        return parent::setPrivilegyModules($module);
+        return parent::setModule($module);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPrivilegies($privilegy)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPrivilegies', array($privilegy));
+
+        return parent::setPrivilegies($privilegy);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIcon($val)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIcon', array($val));
+
+        return parent::setIcon($val);
     }
 
 }

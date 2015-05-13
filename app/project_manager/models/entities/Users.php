@@ -30,6 +30,10 @@
     private $isOwner;
     /** @Column(type="string", length=80, nullable=false) */
     private $email;
+    /** @Column(type="string", length=80, nullable=true) */
+    private $avatar;
+    /** @Column(type="integer", length=10, nullable=true) */
+    private $position;
     
     /**
      * @ManyToOne(targetEntity="models\entities\Core\Language")
@@ -67,6 +71,8 @@
     function getIsOwner() { return $this->isOwner; }
     function getEmail(){ return $this->email;}
     function getUserGroupDefinition(){ return $this->user_groups_definition; }
+    function getAvatar(){ return $this->avatar; }
+    function getPosition(){ return $this->position;}
     
     
     function setName($val){ $this->fname = $val; }
@@ -79,8 +85,8 @@
     function setIsOwner($bool = false){ $this->isOwner = $bool ? 1 : 0;}
     function setEmail( $val ) { $this->email = $val; }
     function setUsrGroupsDefinition(\models\entities\User\UserGroupDefinition $user_group_definition ) { $this->user_groups_definition[] = $user_group_definition; }
-    
-  
+    function setAvatar( $val ) { $this->avatar = $val; }
+    function setPosition($val){ $this->position = $val;}
     
 
  }

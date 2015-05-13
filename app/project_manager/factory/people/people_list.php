@@ -114,10 +114,11 @@ class People_List {
         $response->object               = new \stdClass();
         $response->object->strOutput    = \components\user\userbox\Component::Display( $data );
         $response->object->userid       = $data['user']->getID();
-        $response->object->id           = "#cart-" .$response->object->userid;
-        $response->object->target       = '.user_lists .usercell.group_' . \user_obj_definition($data['user']);
+        $response->object->id           = "#cartUser" .$response->object->userid;
+        $response->object->target       = '#group_' . \user_obj_definition($data['user']) . ' .sortable';
         $response->object->method       = 'append'; // append, prepend, text, html
         $response->callback             = 'PostComponent';
+        $response->object->reinit       = true;
 
 
         //TODO send invitation mail

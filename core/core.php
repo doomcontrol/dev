@@ -19,6 +19,8 @@ class core {
     
     public $validate;
     
+    public $clean;
+    
     public $detect;
     
     public static $Detect;
@@ -40,6 +42,7 @@ class core {
         $this->load = new \lib\Load();
         $this->output = new \lib\Output();
         $this->validate = new \lib\Validate();
+        $this->clean = new \lib\Clean();
         $this->detect = new \lib\device\PHP\uagent_info();
         self::$Detect = $this->detect;
         
@@ -58,7 +61,7 @@ class core {
         
         $guiModel = $this->em->getRepository('models\entities\Core\GuiText');
         //TODO promeniti na dinamicki
-        $this->guiText = $guiModel->getGuiText(1);
+        $this->guiText = $guiModel->getGuiText(2);
         
     }
     

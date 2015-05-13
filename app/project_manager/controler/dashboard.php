@@ -12,6 +12,9 @@ class Dashboard {
     
     public $status;
     
+    
+    
+    
     public function __construct() {
         
         global $core;
@@ -22,11 +25,26 @@ class Dashboard {
     }
     
     
+    /**
+     * indexAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Dashboard
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @return \stdClass
+     */
     public function indexAction(){
         
         $data = [];
         
         $objOutput              = new \stdClass();
+        
+        //print_r(reset($userData = $this->session->get_session('userSes')->getPrivilegies())); die();
         
         $objOutput->content     = $this->core->load->view('dashboard/index', $data, true);
         $objOutput->status      = true;

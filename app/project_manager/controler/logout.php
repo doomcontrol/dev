@@ -18,6 +18,19 @@ class Logout {
     }
     
     
+    
+    /**
+     * indexAction
+     * ----------------------------------------
+     * 06.05.2015
+     * 
+     * @category controler
+     * @name controler.Logout
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     */
     public function indexAction(){
         
         $data = [];
