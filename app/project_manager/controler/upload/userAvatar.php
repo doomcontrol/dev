@@ -167,7 +167,8 @@ class userAvatar {
         }
         
         $response->live = new \stdClass();
-        $response->strOutput = \components\user\useravatar\cartview\Component::display( $response->fileData->fullName, $id );
+        $response->reinit = true;
+        $response->strOutput = \components\user\useravatar\cartview\Component::display( $response->fileData->fullName, $id, $reInit = true );
         
         return $response;
     }

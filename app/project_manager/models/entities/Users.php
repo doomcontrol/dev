@@ -34,6 +34,8 @@
     private $avatar;
     /** @Column(type="integer", length=10, nullable=true) */
     private $position;
+    /** @Column(type="datetime", nullable=false) */
+    private $joined;
     
     /**
      * @ManyToOne(targetEntity="models\entities\Core\Language")
@@ -54,7 +56,7 @@
     
     
     public function __construct() {
-        //$this->language = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->joined = new \DateTime(); 
     }
     
     
@@ -73,6 +75,8 @@
     function getUserGroupDefinition(){ return $this->user_groups_definition; }
     function getAvatar(){ return $this->avatar; }
     function getPosition(){ return $this->position;}
+    function getJoined( $format = true){ return $format ? $this->joined->format('d.m.Y') : $this->joined; }
+    function getJoinedISO(){ return $this->joined->format(\DateTime::ISO8601); }
     
     
     function setName($val){ $this->fname = $val; }

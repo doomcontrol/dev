@@ -2,7 +2,7 @@
 
 class Clean {
     
-    public function cleanString( $string, $clean = "HTML|XSS"){
+    public function cleanString( $string, $clean = "HTML|XSS", $char = ""){
         $cln = explode('|', $clean);
         foreach( $cln as $c ){
             switch ($c){
@@ -11,6 +11,15 @@ class Clean {
                 break;
                 case "XSS":
                     $this->cleanXSS($string);
+                break;
+                case "NUM":
+                    $string = $this->numeric($string);
+                break;
+                case "EMAIL":
+                    $string = $this->email($string);
+                break;
+                case "TRIM":
+                    $this->Trim($string, $char);
                 break;
             }
         }
@@ -55,8 +64,28 @@ class Clean {
         // we are done...
     }
     
+    public function Trim( & $string, $char ){
+        $string = preg_replace('/\s+/', $char, $string);
+    }
+    
+    public function string( $string, $trim = false, $char = '' ){
+        
+        $this->cleanHTML($string);
+        $this->cleanXSS($string);
+        
+        if($trim) $this->Trim( $string, $char );
+        
+        return $string;
+    }
+    
     public function numeric( $string ){
         return preg_replace("/[^0-9]/","",$string);
+    }
+    
+    public function email( $string ){
+        
+        if( filter_var($string, FILTER_SANITIZE_EMAIL)) return $string; else return null;
+        
     }
     
     

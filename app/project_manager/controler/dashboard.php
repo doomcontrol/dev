@@ -22,6 +22,8 @@ class Dashboard {
         
         global $session;
         $this->session = $session;
+        
+        \core\SessionCore::ValidateSession();
     }
     
     

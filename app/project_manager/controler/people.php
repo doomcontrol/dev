@@ -18,6 +18,9 @@ class People  extends People_List {
         global $session;
         $this->session = $session;
         
+        
+        \core\SessionCore::ValidateSession();
+        
         parent::__construct();
     }
     
@@ -39,6 +42,8 @@ class People  extends People_List {
      * @return \stdClass
      */
     public function indexAction(){
+        
+        $this->core->registerControler = "People.indexAction";
         
         $data = [];
         
@@ -222,7 +227,7 @@ class People  extends People_List {
      * ----------------------------------------
      * 06.05.2015
      * 
-     * @desc Page
+     * @desc Store user group
      * 
      * @category controler
      * @name controler.People
@@ -239,5 +244,90 @@ class People  extends People_List {
        $this->core->output->json( \controler\people\EditGroup::Service()->Store($id, $groupId) );
         
     }
+    
+    
+    /**
+     * EditFormAjax
+     * ----------------------------------------
+     * 16.05.2015
+     * 
+     * @desc Get edit user form
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $id
+     */
+    public function EditFormAjax($id){
+        
+        $this->core->output->json( \controler\people\EditForm::Service()->Open($id) );
+        
+    }
+    
+    
+    /**
+     * SaveFormAjax
+     * ----------------------------------------
+     * 16.05.2015
+     * 
+     * @desc Store edit user data
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $id
+     * @param type $fname
+     * @param type $lname
+     * @param type $email
+     * @param type $username
+     * @param type $password
+     * @param type $groupId
+     */
+    public function SaveFormAjax($id,$fname,$lname,$email,$username,$password,$groupId){
+        
+        $formData = new \stdClass();
+        
+        $formData->id           = $this->core->clean->numeric( $id );
+        $formData->firstName    = $this->core->clean->string( $fname );
+        $formData->lastName     = $this->core->clean->string( $lname );
+        $formData->email        = $this->core->clean->email( $email );
+        $formData->username     = $this->core->clean->string( $username, $trim = true, $char = '_' );
+        $formData->password     = $this->core->clean->string( $password );
+        $formData->groupId      = $this->core->clean->numeric( $groupId );
+        
+        $this->core->output->json( \controler\people\SaveEditForm::Service()->Store( $formData ) );
+        
+    }
+    
+    
+    
+     /**
+     * SearchAjax
+     * ----------------------------------------
+     * 16.05.2015
+     * 
+     * @desc Get edit user form
+     * 
+     * @category controler
+     * @name controler.People
+     * 
+     * @author Codeion <damir@codeion.com>
+     * @version 1.0
+     * 
+     * @param type $id
+     */
+    public function SearchAjax($keyword){
+        
+        $this->core->output->json( \controler\people\Search::Service()->Display($keyword, $this) );
+        
+    }
+    
+    
     
 }

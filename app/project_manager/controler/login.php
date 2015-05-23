@@ -20,6 +20,9 @@ class Login {
         $this->core = $core;
         global $session;
         $this->session = $session;
+        
+        $this->core->registerControler = "Login.Construct";
+        
     }
     
     

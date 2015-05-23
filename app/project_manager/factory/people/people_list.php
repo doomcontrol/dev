@@ -53,6 +53,23 @@ class People_List {
     }
     
     
+    public function getUserListFiltered($keyword){
+        
+        $data = [];
+        
+        $data['keyword'] = strip_tags($keyword);
+        
+        $data['users'] = \factory\people\service\Data::filterUsers( $keyword );
+        
+        $data['groups'] = \factory\people\service\Data::generateAllGroups();
+        
+        if( ! $data['users']) return $this->core->load->view('people/list/user_list_empty', $data, true);
+        
+        return $this->core->load->view('people/list/user_list', $data, true);
+        
+    }
+    
+    
     public function validateNewUserData($firstName,$lastName,$email,$group){
         
         $data = [];

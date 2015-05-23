@@ -99,6 +99,10 @@ $session = new lib\Session();
 global $session;
 
 
+if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	/* special ajax here */
+	
+}else {
 /**
  * Load Cache Assets
  */
@@ -106,6 +110,7 @@ global $session;
 \resource_manager\Concate_Files::MainJS();
 \resource_manager\Concate_Files::JS();
 \resource_manager\Concate_Files::Stylesheet();
+}
 
 
 /**

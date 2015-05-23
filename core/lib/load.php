@@ -10,6 +10,9 @@ class Load {
     
     public function view($path, $data, $return_string = false){
         
+        global $core; 
+        
+        global $session;
         
         if(file_exists(APP.'views'.DIRECTORY_SEPARATOR .$path. '_view.php')){
             

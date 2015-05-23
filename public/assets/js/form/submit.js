@@ -8,7 +8,7 @@
  */
 var SubmitForm = function(){
     
-    this.Init = function(form_id){
+    this.Init = function(form_id, clear_form){
         
         var form = $('body').find('#'+form_id);
         
@@ -56,11 +56,17 @@ var SubmitForm = function(){
             
             params['classObj'] = form.data('class');
             params['classFunct'] = form.data('funct');
-            
-            AjaxCall(params, 'SendLive');
+            console.log(form.data('live'));
+            if(form.data('live') !== false){
+                AjaxCall(params, 'SendLive');
+            } else {
+                var clb = form.data('callback');
+                AjaxCall(params, clb!== undefined ? clb : null);
+            }
             
             form.find('input, textarea ').each(function(){
                  if( $(this).prop('type') !== 'button' && $(this).prop('type') !== 'submit' && $(this).prop('type') !== 'radio' && $(this).prop('type') !== 'checkbox'){
+                     if(clear_form !== false)
                      $(this).val('');
                  }
             });

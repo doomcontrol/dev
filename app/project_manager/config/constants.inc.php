@@ -1,8 +1,10 @@
 <?php
 
 define('ASSETS_CONCAT',     FALSE);
-define('ASSETS_MINIFIED',   TRUE); // dont use, must fix the problem with minified js
-define('ASSETS_GZIP',       FALSE);
+define('ASSETS_MINIFIED',   TRUE); 
+define('ASSETS_GZIP',       TRUE);
+
+define('WIZARD_ACTIVE',     FALSE);
 
 define('PAGE_NOT_FOUND_MESSAGE', 'Page not found. Please check url and try again.');
 

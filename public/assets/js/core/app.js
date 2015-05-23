@@ -88,7 +88,7 @@ var GridSortable = function (){
                 connectWith:'.sortable',
                 scroll: true,
                 scrollSensitivity: 10,
-                scrollSpeed: 5,
+                scrollSpeed: 20,
                 stop: function( event, ui ) {
                     
                     var params          = new Object();
@@ -190,11 +190,11 @@ var PageMenu = function(){
         if(p.hasClass('active')){
             p.removeClass('active');
             w.removeClass('active');
-            DisableBodyScroll(false);
+            enablePageScroll();
         } else {
             p.addClass('active');
             w.addClass('active');
-            DisableBodyScroll(true);
+            disablePageScroll();
         }
         
     };
@@ -270,12 +270,12 @@ var MainMenu = function(){
             p.removeClass('active');
             w.removeClass('r-active');
             h.removeClass('active');
-            DisableBodyScroll(false);
+            enablePageScroll();
         } else {
             p.addClass('active');
             w.addClass('r-active');
             h.addClass('active');
-            DisableBodyScroll(true);
+            disablePageScroll();
         }
     };
     
@@ -283,9 +283,18 @@ var MainMenu = function(){
 
 
 
-var hideOutScreenElements = function (){
+var Bind = function(){
     
-    
+    this.touchDouble = function(e){
+        
+        if(isMobile){
+            $(e).on('doubletap', function(){
+                $(e).trigger('dblclick');
+                return false;
+            });
+        }
+        
+    };
     
 };
 
@@ -302,7 +311,7 @@ var pageMenu = new PageMenu();
 var mainMenu = new MainMenu();
 var inlineEdit = new InlineEdit();
 var gridSortable = new GridSortable();
-var screenElements = new hideOutScreenElements();
+var bindEvent = new Bind();
 
 $(function(){
     
@@ -310,17 +319,15 @@ $(function(){
     SelBox.Init();
     SF.Init();
 
-    if($('body').find('.sortable').length){
-        gridSortable.Init();
-    }
-
     pageMenu.Swipe();
     
     var timerId = setInterval(formatDate, 60000);
     
     formatDate();
     
-    $('.contextmenu').contextmenu();
+    reInit();
+    
+    
     
     
 
@@ -335,4 +342,47 @@ function reInit(){
     if($('body').find('.sortable').length){
         gridSortable.Init();
     }
+    
+    $(".load-on-screen").unveil(200, function() {
+        $(this).load(function() {
+            this.style.opacity = 1;
+        });
+    });
+    
+   
+    
 }
+
+(function( win ){
+	var doc = win.document;
+	
+	// If there's a hash, or addEventListener is undefined, stop here
+	if( !location.hash && win.addEventListener ){
+		
+		//scroll to 1
+		window.scrollTo( 0, 1 );
+		var scrollTop = 1,
+			getScrollTop = function(){
+				return win.pageYOffset || doc.compatMode === "CSS1Compat" && doc.documentElement.scrollTop || doc.body.scrollTop || 0;
+			},
+		
+			//reset to 0 on bodyready, if needed
+			bodycheck = setInterval(function(){
+				if( doc.body ){
+					clearInterval( bodycheck );
+					scrollTop = getScrollTop();
+					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+				}	
+			}, 15 );
+		
+		win.addEventListener( "load", function(){
+			setTimeout(function(){
+				//at load, if user hasn't scrolled more than 20 or so...
+				if( getScrollTop() < 20 ){
+					//reset to hide addr bar at onload
+					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
+				}
+			}, 0);
+		} );
+	}
+})( this );

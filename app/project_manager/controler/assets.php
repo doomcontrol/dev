@@ -19,6 +19,8 @@ class Assets {
         global $session;
         $this->session = $session;
         
+        \core\SessionCore::ValidateSession();
+        
         $this->loadResourceConf();
     }
 
@@ -102,6 +104,15 @@ class Assets {
         
         $key = md5('script.js?v='.VERSION); // key of cache file
         
+
+        $this->customJS();
+        
+        if(self::$customKey != null)
+            $key = self::$customKey;
+            self::$customKey = null;
+            
+        
+        
         $this->loadFile($key, $this->resource['js'], 'Content-type: application/javascript', ';');
     }
 
@@ -125,6 +136,13 @@ class Assets {
         
         $key = md5('stylesheet.css?v='.VERSION); // key of cache file
         
+        $this->customCss();
+        
+        if(self::$customKey != null)
+            $key = self::$customKey;
+            self::$customKey = null;
+            
+ 
         $this->loadFile($key, $this->resource['css'],'Content-type: text/css');
     }
 
@@ -161,6 +179,44 @@ class Assets {
         }
         
         die();
+    }
+    
+    private static $customKey = null;
+    private function customCss(){
+         
+        if(isset($this->resource['custom']['css']))
+        foreach($this->resource['custom']['css'] as $key=>$value){
+        
+            $pattern = "~$key~";  
+            
+                preg_match($pattern, $_SERVER['REQUEST_URI'], $matches);
+            
+                if(isset($matches[0])){
+                    self::$customKey = $matches[0] . '.css?v='.VERSION;
+                    foreach($value as $css)
+                    $this->resource['css'][] = $css;
+                }
+            
+        }
+        
+    }
+    
+    private function customJS(){
+        
+        if(isset($this->resource['custom']['js']))
+        foreach($this->resource['custom']['js'] as $key=>$value){
+        
+            $pattern = "~$key~";  
+            
+                preg_match($pattern, $_SERVER['REQUEST_URI'], $matches);
+            
+                if(isset($matches[0])){
+                    foreach($value as $js)
+                    $this->resource['js'][] = $js;
+                }
+            
+        }
+        
     }
 
     

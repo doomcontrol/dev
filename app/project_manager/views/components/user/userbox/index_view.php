@@ -1,9 +1,9 @@
-<div class="ui-state-default cart_view clr contextmenu noselect" id="cartUser<?=$user->getID()?>" data-id="<?=$user->getID()?>" data-sortableclass="People" data-sortablefunct="Position" data-position="<?=$user->getPosition()?>"> 
+<div class="ui-state-default cart_view clr contextmenu noselect" id="cartUser<?=$user->getID()?>" data-id="<?=$user->getID()?>" data-sortableclass="People" data-sortablefunct="Position" data-position="<?=$user->getPosition()?>" data-class="People" data-funct="EditForm" ondblclick="LoadView(this);" onclick="bindEvent.touchDouble(this)"> 
     <div class="cart_view_head"> 
         <?= \components\user\useravatar\cartview\Component::display($user->getAvatar(), $user->getID())?>
         <img class="groupicon" src="<?=  assets_url('img/'.  \user_obj_definition($user,true)->getIcon())?>" />
-        <h3 class="name user<?=$user->getID()?>"><?= $user->getfullName()?></h3> 
-        <a href="mailto:<?=$user->getEmail()?>" class="mail user<?=$user->getID()?>"><?=$user->getEmail()?></a>
+        <h3 class="name user<?=$user->getID()?> userFullName<?=$user->getID()?>"><?= $user->getfullName()?></h3> 
+        <a href="mailto:<?=$user->getEmail()?>" class="mail user<?=$user->getID()?> userEmail<?=$user->getID()?>"><?=$user->getEmail()?></a>
     </div>
     <div class="contextmenu-holder noselect">
         <div class="cxh-title">Edit User Data</div>

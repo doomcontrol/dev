@@ -39,6 +39,38 @@ function ListenerServer(retriveObject){
     if(parseInt(json.processId) !== parseInt(pid)) return;
     
     
+    try{
+        
+        if(json.object.data){
+            DisplayData(json.object.data);
+        }
+        
+    } catch(err){
+        console.log(err);
+    }
+    
+    try{
+        
+        if(json.object.move){
+            MoveObject(json.object.move);
+        }
+        
+    } catch(err){
+        console.log(err);
+    }
+    
+    
+    try{
+        
+        if(json.object.highlight){
+                Highlight(json.object.highlight);
+        }
+        
+    } catch(err){
+        console.log(err);
+    }
+    
+    
     if(json.callback.length > 0){  
         eval(json.callback)(json);
         return; 

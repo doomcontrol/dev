@@ -24,6 +24,8 @@ class core {
     public $detect;
     
     public static $Detect;
+    
+    public $registerControler;
 
     
     public function __construct() {
@@ -39,7 +41,7 @@ class core {
         include_once CORE . 'helpers/url_helper.inc.php';
         
         $this->doctrine = new lib\Doctrine();
-        $this->load = new \lib\Load();
+        $this->load = new \lib\Load(); 
         $this->output = new \lib\Output();
         $this->validate = new \lib\Validate();
         $this->clean = new \lib\Clean();
@@ -93,7 +95,6 @@ class core {
         global $session;
         
         $this->user = $session->get_session('userSes');
-        
         
         $data = \control\Load::LoadByUrl();
         

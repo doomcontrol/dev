@@ -31,3 +31,14 @@ if(!function_exists('gui_text')){
     
     
 }
+
+
+if(!function_exists('prettify')){
+    
+    function prettify($string){
+        
+        return htmlentities($string) . "\n";
+        
+    }
+    
+}

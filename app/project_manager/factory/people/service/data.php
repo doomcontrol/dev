@@ -15,6 +15,17 @@ class Data {
     }
     
     
+    public static function filterUsers($keywords = null){
+        
+        global $core;
+        
+        $data = [];
+        
+        return $core->em->getRepository('models\entities\Users')->getAll($keywords);
+        
+    }
+    
+    
     public static function generateAllGroups(){
         
         global $core;

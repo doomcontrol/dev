@@ -1,0 +1,182 @@
+/*
+ * Derived from einaros's Sons of Obsidian theme at
+ * http://studiostyl.es/schemes/son-of-obsidian by
+ * Alex Ford of CodeTunnel:
+ * http://CodeTunnel.com/blog/post/71/google-code-prettify-obsidian-theme
+ */
+
+.str
+{
+    color: #EC7600;
+}
+.kwd
+{
+    color: #21A1D8;
+}
+.com
+{
+    color: #696969;
+}
+.typ
+{
+    color: #678CB1;
+}
+.lit
+{
+    color: #FACD22;
+}
+.pun
+{
+    color: #F1F2F3;
+}
+.pln
+{
+    color: #F1F2F3;
+}
+.tag
+{
+    color: #8AC763;
+}
+.atn
+{
+    color: #E0E2E4;
+}
+.atv
+{
+    color: #EC7600;
+}
+.dec
+{
+    color: rgb(153, 197, 25);
+}
+pre.prettyprint
+{
+    border: 0px solid #888;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+ol.linenums
+{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.prettyprint {
+    background: #000;
+}
+li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
+{
+    color: #555;
+    list-style-type: decimal;
+    word-wrap: break-word;
+}
+li.L1, li.L3, li.L5, li.L7, li.L9 {
+    background: #111;
+}
+@media print
+{
+    .str
+    {
+        color: #060;
+    }
+    .kwd
+    {
+        color: #006;
+        font-weight: bold;
+    }
+    .com
+    {
+        color: #600;
+        font-style: italic;
+    }
+    .typ
+    {
+        color: #404;
+        font-weight: bold;
+    }
+    .lit
+    {
+        color: #044;
+    }
+    .pun
+    {
+        color: #440;
+    }
+    .pln
+    {
+        color: #000;
+    }
+    .tag
+    {
+        color: #006;
+        font-weight: bold;
+    }
+    .atn
+    {
+        color: #404;
+    }
+    .atv
+    {
+        color: #060;
+    }
+}
+
+.leftside {
+    width: 300px;
+    float:left;
+    }
+    .leftside:after {
+        content:"";
+        display: block;
+        position:absolute;
+        right:0px;
+        top:10px;
+        bottom:10px;
+        width:1px;
+        background: #fff;
+        border-left: solid 1px rgb(220,220,220);
+    }
+
+.rightside {
+    margin-left: 305px;
+    }
+    .rightside:before {
+        content:"";
+        display: block;
+        position:absolute;
+        left:-7px;
+        top:10px;
+        bottom:10px;
+        width:1px;
+        background: #fff;
+        border-left: solid 1px rgb(220,220,220);
+    }
+
+.leftside ul li {margin-bottom: 7px;}
+.leftside ul li a,.leftside ul li a:link {
+    color: #333;
+    text-decoration: none;
+    display:block;
+}
+.leftside ul li a:visited {}
+.leftside ul li a:hover {text-decoration: underline;}
+
+.docpage h1 a {display:block;position:absolute;font-size:12px;right:0px;top:4px;color:#333;}
+
+.rightside ul li {margin-bottom: 7px; text-decoration: none; list-style: none;}
+.rightside ul li a,.rightside ul li a:link {
+    color: #333;
+    text-decoration: none;
+    display:block;
+    font-size:14px;
+}
+.rightside ul li a:visited {}
+.rightside ul li a:hover {text-decoration: underline;}
+.rightside h3 {font-size: 18px; color:#000;}
+
+.rightside .summary {
+    font-size:13px; color:#333;
+    padding: 5px 0;
+}
+
+.rightside .summary strong {font-weight: 400; color:#C06D32;}
+

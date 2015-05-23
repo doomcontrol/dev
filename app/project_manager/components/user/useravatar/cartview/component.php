@@ -5,11 +5,13 @@ class Component {
     
     
     
-    public static function display( $imagePath, $id){
+    public static function display( $imagePath, $id, $reInit = false){
         
         global $core;
         
         $data['image'] = $imagePath;
+        
+        $data['reInit'] = $reInit;
         
         $ext = @pathinfo($imagePath, PATHINFO_EXTENSION);
         

@@ -6,6 +6,12 @@ class Ajax_Request {
     private $classObj, $classFunct;
     
     
+    public function __construct(){
+        
+        \core\SessionCore::ValidateSession();
+        
+    }
+    
     /**
      * indexAction
      * ----------------------------------------------

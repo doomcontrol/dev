@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/dev.live.com/public_html/public/assets/js/form/submit.js</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/factory/people/service/form.php</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/views/components/user/userbox/index_view.php</file>
-            <file>file:/var/www/dev.live.com/public_html/public/assets/template/app/css/select.css</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/config/constants.inc.php</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/controler/people.php</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/factory/people/people_list.php</file>
-            <file>file:/var/www/dev.live.com/public_html/public/assets/template/app/css/main.css</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/controler/people/EditPosition.php</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/controler/people/EditGroup.php</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/views/people/list/user_list_view.php</file>
-            <file>file:/var/www/dev.live.com/public_html/app/project_manager/components/user/userbox/component.php</file>
-            <file>file:/var/www/dev.live.com/public_html/public/assets/js/core/app.js</file>
-        </group>
-    </open-files>
 </project-private>

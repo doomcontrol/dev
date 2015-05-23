@@ -52,3 +52,10 @@ $sql['user_group_definition_modules'][1][] = "INSERT INTO `projectcontrol_$sub`.
 $sql['user_group_definition_modules'][1][] = "INSERT INTO `projectcontrol_$sub`.`user_group_definition_modules` (`groupDefinitionId`,`moduleId`) VALUES (4,5)";
 $sql['user_group_definition_modules'][1][] = "INSERT INTO `projectcontrol_$sub`.`user_group_definition_modules` (`groupDefinitionId`,`moduleId`) VALUES (5,4)";
 
+$sql['user_group_definition_modules'][4][] = "INSERT INTO `projectcontrol_$sub`.`user_group_definition_modules` (`groupDefinitionId`,`moduleId`) VALUES (1,6)";
+$sql['user_group_definition_modules'][4][] = "INSERT INTO `projectcontrol_$sub`.`user_group_definition_modules` (`groupDefinitionId`,`moduleId`) VALUES (2,6)";
+
+
+
+
+

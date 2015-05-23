@@ -8,13 +8,18 @@ class Output {
     }
     
     
-    public function json($array){
+    public function json($array, $die = true){
         
-        header('Content-Type: application/json');
+        if($die)
+            header('Content-Type: application/json');
         
         $json = json_encode( $array );
         
-        die( $json );
+        if($die)
+            die( $json );
+        
+        if(! $die)
+            return $json;
         
     }
     

@@ -15,7 +15,7 @@ class usersRepository extends EntityRepository {
         $qb = $this->_em->createQueryBuilder();
         
         $qb->select(array(
-            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position, joined}',
             'partial ugd.{id,name,status,icon}',
             'partial ugdp.{id,name,read,write,edit,delete,upload,viewInternal,manageAll}'
         ))->from ( 'models\entities\Users', 'u' )
@@ -87,7 +87,7 @@ class usersRepository extends EntityRepository {
         $qb = $this->_em->createQueryBuilder();
         
         $qb->select(array(
-            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position, joined}',
         ))->from ( 'models\entities\Users', 'u' )
         ->where('u.email = :email')
         ->setParameter('email', $email );
@@ -119,7 +119,7 @@ class usersRepository extends EntityRepository {
         $qb = $this->_em->createQueryBuilder();
         
          $qb->select(array(
-            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position, joined}',
             'partial ugd.{id,name,status,icon}',
             'partial m.{id,name,status}',
             'partial ugdp.{id,name,read,write,edit,delete,upload,viewInternal,manageAll}'
@@ -141,12 +141,12 @@ class usersRepository extends EntityRepository {
     }
     
     
-    function getAll(){
+    function getAll($keyword = null){
         
          $qb = $this->_em->createQueryBuilder();
         
          $qb->select(array(
-            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position}',
+            'partial u.{id, fname, lname,hash, username, isOwner, email, avatar, position, joined}',
             'partial ugd.{id,name,status,icon}',
             'partial m.{id,name,status}',
             'partial ugdp.{id,name,read,write,edit,delete,upload,viewInternal,manageAll}'
@@ -155,12 +155,56 @@ class usersRepository extends EntityRepository {
         ->leftJoin('ugd.privilegies','ugdp')
         ->leftJoin('ugd.modules','m')
         ->orderBy('u.position','ASC');
+         
+        $this->filterGetAll($keyword, $qb);
         
-        $query = $qb->getQuery();
+        $query = $qb->getQuery(); 
         $query->setHint(Query::HINT_REFRESH, true);
 
-
         return $query->getResult();
+    }
+    
+    
+    
+    private function filterGetAll($keyword, & $qb){
+        
+        if($keyword){
+            
+        	$keyList = explode(' ', $keyword);
+        	$keyImplode = implode('%', $keyList);
+        	$keywordString = str_replace('%%','%',('%'.$keyImplode.'%'));    
+                
+        	$qb
+        	->where($qb->expr()->orX(
+        			$qb->expr()->like('u.fname',  ':key1'),
+        			$qb->expr()->like('u.lname',  ':key2'),
+                                $qb->expr()->like('u.email',  ':key3'),
+        			$qb->expr()->like('ugd.name', ':key4')
+        	));
+                
+                
+                foreach($keyList as $index => $key){
+                $qb->orWhere($qb->expr()->orX(
+                                $qb->expr()->like('u.fname', ':lopkey1_'.$index),
+                                $qb->expr()->like('u.lname', ':lopkey2_'.$index),
+                                $qb->expr()->like('u.email', ':lopkey3_'.$index),
+                                $qb->expr()->like('ugd.name',':lopkey4_'.$index)
+                    ));
+                    $qb
+                ->setParameter('lopkey1_'.$index, $key)
+                ->setParameter('lopkey2_'.$index, $key)
+                ->setParameter('lopkey3_'.$index, $key)
+                ->setParameter('lopkey4_'.$index, $key);
+                }
+        	
+        	
+                $qb
+        	->setParameter('key1', $keywordString)
+        	->setParameter('key2', $keywordString)
+        	->setParameter('key3', $keywordString)
+                ->setParameter('key4', $keywordString); 
+        }
+        
     }
     
     

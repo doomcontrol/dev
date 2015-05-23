@@ -22,14 +22,98 @@ function PushLive(object){
     } catch(err){
         console.log(err);
     }
+    
+    try{
+        
+        if(object.object.data){
+            DisplayData(object.object.data);
+        }
+        
+    } catch(err){
+        console.log(err);
+    }
+    
+    try{
+        
+        if(object.object.close){
+            closeWindow(object.object.close);
+        }
+        
+    } catch(err){
+        console.log(err);
+    }
+    
+    try{
+        
+        if(object.object.move){
+            MoveObject(object.object.move);
+        }
+        
+    } catch(err){
+        console.log(err);
+    }
+    
+    
+    try{
+        
+        if(object.object.highlight){
+                Highlight(object.object.highlight);
+        }
+        
+    } catch(err){
+        console.log(err);
+    }
 
     servX.send( 'message',object );
     
 };
 
 
+function MoveObject(move){
+  
+    console.log('Move object');
+    console.log('---------------------------------------');
+    console.log(move);
+  
+    var t = $(move.target);
+    var e = $(move.element);
+    
+    e.detach().appendTo(t);
+    enablePageScroll();
+};
+
+
+function DisplayData(data){
+    
+    console.log("Display Data");
+    console.log("---------------------------------");
+    console.log(data);
+    
+    $.each(data,function(i,m){
+        var t = m.target;
+        var v = m.value;
+        
+        $('body').find(t).text(v);
+        
+    });
+    
+    
+    
+};
+
+function closeWindow(target){
+    console.log('Close Window');
+    console.log('----------------------------------------');
+    console.log(target);
+    
+    $(target).fadeOut('fast',function(){ $(target).remove();});
+    enablePageScroll();
+};
+
+
 function writeServerInfo(json){
-   
+    console.log('Write Server Info');
+    console.log("--------------------------------");
     $('#server_info').html(json.object.strOutput);
     
 };
@@ -258,3 +342,104 @@ function launchIntoFullscreen(element) {
 };
 
 
+function LoadView(e){
+    
+    var $e = $(e);
+    
+    var params  = new Object();
+        params.classObj     = $e.data('class');
+        params.classFunct   = $e.data('funct');
+        params.id           = $e.data('id');
+                    
+       AjaxCall(params, 'DisplayView');
+    
+};
+
+
+function disablePageScroll(){
+    var scrollPosition = [
+        self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+        self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
+    ];
+    var html = jQuery('html'); // it would make more sense to apply this to body, but IE7 won't have that
+    html.data('scroll-position', scrollPosition);
+    html.data('previous-overflow', html.css('overflow'));
+    html.css('overflow', 'hidden');
+    window.scrollTo(scrollPosition[0], scrollPosition[1]);
+};
+
+
+function enablePageScroll(){
+    var html = jQuery('html');
+    var scrollPosition = html.data('scroll-position');
+    html.css('overflow', html.data('previous-overflow'));
+    window.scrollTo(scrollPosition[0], scrollPosition[1])
+};
+
+
+function DisplayView(response){
+  
+    try{
+        
+        var place = 'body';
+        
+        if(response.target !== undefined && response.target !== null){
+            place = response.target;
+        }
+        
+        if(response.object.strOutput !== undefined && response.object.strOutput !== null && response.object.strOutput !== '') {
+                
+                var m = $('body').find('.removable-mask');
+                if(m.length) m.remove();
+                if($(response.object.id).length) $(response.object.id).remove();
+                
+                
+                
+                if(response.object.mask === true){
+                    $('body').append('<div class="removable-mask" />');
+                    var m = $('body').find('.removable-mask');
+                    m.on('click',function(){
+                        enablePageScroll();
+                        if(m.length) m.remove();
+                        m.remove();
+                        $( response.object.id).remove();
+                        
+                    });
+                }
+                
+                disablePageScroll();
+                
+                $(place).append( response.object.strOutput);
+                
+                formatDate();
+                
+                
+                $(response.object.id).find('.inline-cancel').on('click',function(){
+                    enablePageScroll();
+                    if(m.length) m.remove();
+                     m.remove();
+                     $( response.object.id).remove();
+                     if( $('html').css('overflow') === "hidden"){
+                         $('html').css('overflow','visible');
+                     }
+                });
+        }
+        
+    }catch(err){
+        console.log(err);
+    }
+    
+};
+
+
+
+function ReplaceHtml(response){
+    console.log('Replace Html');
+    console.log('--------------------------------------');
+    console.log(response);
+    
+    $(response.object.target).html(response.object.strOutput);
+    
+    reInit();
+    
+};

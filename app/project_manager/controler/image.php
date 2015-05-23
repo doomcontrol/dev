@@ -31,6 +31,8 @@ class Image {
         
         $imageRealPath = $service->Init()->getImagePath() . $imageName;
         
+        \core\SessionCore::ValidateSession();
+        
         \files\Open::Image( $imageRealPath );
     }
     

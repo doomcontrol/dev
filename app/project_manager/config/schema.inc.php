@@ -47,12 +47,18 @@ $sqlList['modules']['db']                           =  $db2;
 $sqlList['modules']['root']                         =  true;
 
 
+$sqlList['country']['classMetaData']                = 'models\entities\Core\Country';
+$sqlList['country']['table']                        = 'country';
+$sqlList['country']['db']                           =  $db2;
+$sqlList['country']['root']                         =  true;
+
+
 /* CLIENTS TABLE */
 
-$sqlList['revision_client']['classMetaData']                  = 'models\entities\Revision';
-$sqlList['revision_client']['table']                          = 'revision_client';
-$sqlList['revision_client']['db']                             =  $db1;
-$sqlList['revision_client']['root']                           =  false;
+$sqlList['revision_client']['classMetaData']        = 'models\entities\Revision';
+$sqlList['revision_client']['table']                = 'revision_client';
+$sqlList['revision_client']['db']                   =  $db1;
+$sqlList['revision_client']['root']                 =  false;
 
 
 $sqlList['users']['classMetaData']                  = 'models\entities\Users';
@@ -83,6 +89,11 @@ $sqlList['privilegies']['classMetaData']            = 'models\entities\Privilegi
 $sqlList['privilegies']['table']                    = 'privilegies';
 $sqlList['privilegies']['db']                       =  $db1;
 $sqlList['privilegies']['root']                     =  false;
+
+$sqlList['company']['classMetaData']                = 'models\entities\Company';
+$sqlList['company']['table']                        = 'company';
+$sqlList['company']['db']                           =  $db1;
+$sqlList['company']['root']                         =  false;
 
 
 

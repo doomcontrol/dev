@@ -4,13 +4,15 @@ if( ! function_exists('user_modules')){
     
     function user_modules(){
         
+        $modules = array();
+        
         $userData = \objects\user\UserData::userData();
         
-        if(! $userData )  redirect_url('login');
+        if(! $userData )  return $modules;
         
         $userModules = $userData->getModules();
         
-        $modules = array();
+        
         
         foreach($userModules as $module){
             
@@ -74,6 +76,12 @@ if( ! function_exists('user_privilegies')){
     }
 }
 
+
+if( !function_exists('user_privileges')){
+    function user_privileges(){
+        return user_privilegies();
+    }
+}
 
 
 if( !function_exists('is_user_have_module')){

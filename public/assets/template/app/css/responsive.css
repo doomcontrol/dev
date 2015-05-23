@@ -5,6 +5,7 @@
 		column-count: 3;
                 display:list-item;
 	}
+        .usercell {width:100%;}
 }
 
 @media (max-width: 1110px) {
@@ -14,6 +15,7 @@
 		column-count: 2;
                 display:list-item;
 	}
+        .usercell {width:100%;}
 }
 
 
@@ -24,6 +26,7 @@
 		column-count: 1;
                 display:block;
 	}
+        .usercell {width:100%;}
 }
 
 
@@ -67,7 +70,7 @@
         -moz-border-radius: 45px;
         -webkit-border-radius: 45px;
         margin-left:-45px;
-        z-index: 5000 !important;
+        z-index: 100 !important;
         overflow: hidden;
         background: rgb(112,112,112);
         background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzcwNzA3MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjM1JSIgc3RvcC1jb2xvcj0iIzNhM2EzYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
@@ -85,7 +88,7 @@
         .page-main-navigation li {display:none;}
         .page-main-navigation .list-menu {
             display:block; position: fixed;
-            top:60px;
+            top:0px;
             left:-360px;
             padding-left:50px;
             bottom:40px;
@@ -114,6 +117,8 @@
         .quick-user .drop-hold {z-index: 3000;}
         .quick-user .drop-hold a.link-br {font-size: 14px; display:block;padding:12px 0;display:block;}
         
+        .select-box-options {top:0; left:0; right:0; bottom:0;}
+        
         /* MAIN MENU */
         .navigation-main-hold {
             border-bottom: none;
@@ -123,15 +128,15 @@
             display:block;
             position:fixed;
             width: 360px;
-            top:60px;
+            top:0px;
             right:-360px;
             bottom: 40px;
-            z-index:1;
+            z-index:9999;
             background: rgb(209, 86, 11);
             box-sizing: border-box;
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
-            padding-top: 60px;
+            padding-top: 15px;
         }
         .navigation-main-hold ul.active {
 
@@ -140,8 +145,21 @@
             -webkit-transform: translate(-90%,0);-moz-transform: translate(-90%,0);transform: translate(-90%,0);
         }
         .navigation-main-hold.active .main-mobile-menu {
-            /*position:fixed;*/
-        }
+            z-index: 10000;
+            top: -38px;
+            position: fixed;
+            right: -31px;
+            left: auto;
+            background: transparent;
+            border:none;
+            border-radius: 0;
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            }
+            .navigation-main-hold.active .main-mobile-menu i {
+                left: -13px;
+                color:#fff;
+            }
         .navigation-main-hold ul li {
             display:block;
             width:auto;
@@ -152,4 +170,11 @@
         .navigation-main-hold ul li a {padding-left: 50px !important; display:inline-block; width:auto; padding-bottom: 0px;height: auto !important;}
         .navigation-main-hold ul li a i {left:15px;top:10px; }
         .navigation-main-hold ul li:hover, .navigation-main-hold ul li:hover a, .navigation-main-hold ul li a:hover, .navigation-main-hold ul:hover li a:hover {background: #333 !important; color:#fff !important;}
+        
+        .extended-window {width: 100%; height:100%;}
+        .extended-window .inline-btt input[type=submit] {font-size:16px;padding: 10px 25px;}
+        .extended-window .inline-btt .inline-cancel {font-size:16px; top:24px;}
+        .extended-window .form-item input {max-width: 95%;}
+        .extended-window em {font-size:12px !important;}
+        .extended-window .select-box .select-box-display {width:95%;}
 }

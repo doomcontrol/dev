@@ -5,6 +5,7 @@ class Concate_Files {
     static $session;
     static $version;
     static $resource;
+    static $customKey;
     
     public static function Init(){
         
@@ -172,12 +173,19 @@ class Concate_Files {
         
         if(ASSETS_CONCAT){
             
-            return '<link type="text/css" rel="stylesheet" href="'.site_url('stylesheet.css?v='.VERSION).'" /> ' . "\n\t";
+            $String = '<link type="text/css" rel="stylesheet" href="'.site_url('stylesheet.css?v='.VERSION).'" /> ' . "\n\t";
+            self::LoadResource();
+            self::$resource['css'] = array();
+            self::customCss();
+            foreach(self::$resource['css'] as $file) $String.= '<link type="text/css" rel="stylesheet" href="'.assets_url($file).'" /> ' . "\n\t";
+            
+            return $String;
+            
         } else {
             
-            $String = '';  self::LoadResource();
+            $String = '';  self::LoadResource(); self::customCss();
             
-            foreach(self::$resource['css'] as $file) $String.= '<link type="text/css" rel="stylesheet" href="'.assets_url($file.'?v='.VERSION).'" /> ' . "\n\t";
+            foreach(self::$resource['css'] as $file) $String.= '<link type="text/css" rel="stylesheet" href="'.assets_url($file).'" /> ' . "\n\t";
             
             return $String;
         }
@@ -193,14 +201,20 @@ class Concate_Files {
      */
     static function DisplayMainJS(){
         
+        $String = ''; self::LoadResource();
+        
+        foreach(self::$resource['exclude'] as $file){
+            $String.= '<script src="'.assets_url($file.'?v=').VERSION.'"></script>' . "\n\t"; 
+        }
+        
         if(ASSETS_CONCAT){
             
-            return  '<script src="'.site_url('main.js?v=').VERSION.'"></script>' . "\n\t"; 
+            return  $String.'<script src="'.site_url('main.js?v=').VERSION.'"></script>' . "\n\t"; 
         } else {
             
-            $String = ''; self::LoadResource();
             
-            foreach(self::$resource['jstop'] as $file) $String.= '<script src="'.assets_url($file.'?v=').VERSION.'"></script>' . "\n\t"; 
+            
+            foreach(self::$resource['jstop'] as $file) $String.= '<script src="'.assets_url($file).'"></script>' . "\n\t"; 
             
             return $String;
         }
@@ -218,16 +232,66 @@ class Concate_Files {
     static function DisplayJS(){
         
         if(ASSETS_CONCAT){
+            $String = '';
             
-            return  '<script src="'.site_url('script.js?v=').VERSION.'"></script>' . "\n\t"; 
+            $String .= '<script src="'.site_url('script.js?v=').VERSION.'"></script>' . "\n\t"; 
+            
+            self::LoadResource(); 
+            self::$resource['js'] = array();
+            self::customJS();
+            
+            foreach(self::$resource['js'] as $file) $String.= '<script src="'.assets_url($file).'"></script>' . "\n\t"; 
+
+            return $String;
+            
         } else {
             
-            $String = '';  self::LoadResource();
+            $String = '';  self::LoadResource(); self::customJS();
             
-            foreach(self::$resource['js'] as $file) $String.= '<script src="'.assets_url($file.'?v=').VERSION.'"></script>' . "\n\t"; 
+            foreach(self::$resource['js'] as $file) $String.= '<script src="'.assets_url($file).'"></script>' . "\n\t"; 
 
             return $String;
         }
+    }
+    
+    
+    private static function customCss(){
+        
+        if(isset(self::$resource['custom']['css'])){
+            
+            foreach(self::$resource['custom']['css'] as $key=>$value){
+
+                $pattern = "~$key~";  
+
+                    preg_match($pattern, $_SERVER['REQUEST_URI'], $matches);
+
+                    if(isset($matches[0])){
+                        foreach($value as $css)
+                        self::$resource['css'][md5($css)] = $css;
+                    }
+            
+            }
+        }
+        
+    }
+    
+    
+    private static function customJS(){
+        
+        if(isset(self::$resource['custom']['js']))
+        foreach(self::$resource['custom']['js'] as $key=>$value){
+        
+            $pattern = "~$key~";  
+            
+                preg_match($pattern, $_SERVER['REQUEST_URI'], $matches);
+            
+                if(isset($matches[0])){
+                    foreach($value as $js)
+                    self::$resource['js'][md5($js)] = $js;
+                }
+            
+        }
+        
     }
 }
 

@@ -64,10 +64,10 @@ class Users extends \models\entities\Users implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'avatar', '' . "\0" . 'models\\entities\\Users' . "\0" . 'position', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language', '' . "\0" . 'models\\entities\\Users' . "\0" . 'user_groups_definition');
+            return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'avatar', '' . "\0" . 'models\\entities\\Users' . "\0" . 'position', '' . "\0" . 'models\\entities\\Users' . "\0" . 'joined', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language', '' . "\0" . 'models\\entities\\Users' . "\0" . 'user_groups_definition');
         }
 
-        return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'avatar', '' . "\0" . 'models\\entities\\Users' . "\0" . 'position', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language', '' . "\0" . 'models\\entities\\Users' . "\0" . 'user_groups_definition');
+        return array('__isInitialized__', '' . "\0" . 'models\\entities\\Users' . "\0" . 'id', '' . "\0" . 'models\\entities\\Users' . "\0" . 'fname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'lname', '' . "\0" . 'models\\entities\\Users' . "\0" . 'status', '' . "\0" . 'models\\entities\\Users' . "\0" . 'username', '' . "\0" . 'models\\entities\\Users' . "\0" . 'password', '' . "\0" . 'models\\entities\\Users' . "\0" . 'hash', '' . "\0" . 'models\\entities\\Users' . "\0" . 'isOwner', '' . "\0" . 'models\\entities\\Users' . "\0" . 'email', '' . "\0" . 'models\\entities\\Users' . "\0" . 'avatar', '' . "\0" . 'models\\entities\\Users' . "\0" . 'position', '' . "\0" . 'models\\entities\\Users' . "\0" . 'joined', '' . "\0" . 'models\\entities\\Users' . "\0" . 'language', '' . "\0" . 'models\\entities\\Users' . "\0" . 'user_groups_definition');
     }
 
     /**
@@ -325,6 +325,28 @@ class Users extends \models\entities\Users implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getPosition', array());
 
         return parent::getPosition();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getJoined($format = true)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getJoined', array($format));
+
+        return parent::getJoined($format);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getJoinedISO()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getJoinedISO', array());
+
+        return parent::getJoinedISO();
     }
 
     /**
