@@ -86,8 +86,10 @@ var SelectBox = function(){
       
         object.displaybox.unbind().on('click', function(){
             
-            $('body').append('<div class="select-box-options boxsizing animate"></div>');
             
+            
+            $('body').append('<div class="select-box-options boxsizing animate"></div>');
+
             var sb_opt = $('body').find('.select-box-options');
             
             var ohtm = null;

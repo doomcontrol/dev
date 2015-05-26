@@ -1,7 +1,7 @@
 function PushLive(object){
     
-    console.log('Push Live:');
-    console.log(object);
+    //console.log('Push Live:');
+    //console.log(object);
     
     try{
         
@@ -10,7 +10,7 @@ function PushLive(object){
         }
  
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     try{
@@ -20,7 +20,7 @@ function PushLive(object){
         }
  
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     try{
@@ -30,7 +30,7 @@ function PushLive(object){
         }
         
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     try{
@@ -40,7 +40,7 @@ function PushLive(object){
         }
         
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     try{
@@ -50,7 +50,7 @@ function PushLive(object){
         }
         
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     
@@ -61,7 +61,7 @@ function PushLive(object){
         }
         
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
 
     servX.send( 'message',object );
@@ -71,9 +71,9 @@ function PushLive(object){
 
 function MoveObject(move){
   
-    console.log('Move object');
-    console.log('---------------------------------------');
-    console.log(move);
+    //console.log('Move object');
+    //console.log('---------------------------------------');
+    //console.log(move);
   
     var t = $(move.target);
     var e = $(move.element);
@@ -85,9 +85,9 @@ function MoveObject(move){
 
 function DisplayData(data){
     
-    console.log("Display Data");
-    console.log("---------------------------------");
-    console.log(data);
+    //console.log("Display Data");
+    //console.log("---------------------------------");
+    //console.log(data);
     
     $.each(data,function(i,m){
         var t = m.target;
@@ -102,9 +102,9 @@ function DisplayData(data){
 };
 
 function closeWindow(target){
-    console.log('Close Window');
-    console.log('----------------------------------------');
-    console.log(target);
+    //console.log('Close Window');
+    //console.log('----------------------------------------');
+    //console.log(target);
     
     $(target).fadeOut('fast',function(){ $(target).remove();});
     enablePageScroll();
@@ -112,8 +112,8 @@ function closeWindow(target){
 
 
 function writeServerInfo(json){
-    console.log('Write Server Info');
-    console.log("--------------------------------");
+    //console.log('Write Server Info');
+    //console.log("--------------------------------");
     $('#server_info').html(json.object.strOutput);
     
 };
@@ -222,9 +222,9 @@ function AjaxCall( params, callback, sendData, sendData2 ){
         type: "POST",  url:  ajaxUrl,  data: params,
         success: function(_response) {
             if(callback !== undefined){
-                console.log('Ajax Call:' + callback);
+                //console.log('Ajax Call:' + callback);
                 eval(callback)(_response, sendData, sendData2);
-                console.log('Ajax Call Callback :' + callback);
+                //console.log('Ajax Call Callback :' + callback);
                  
             }
         },
@@ -426,7 +426,7 @@ function DisplayView(response){
         }
         
     }catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
 };
@@ -434,9 +434,9 @@ function DisplayView(response){
 
 
 function ReplaceHtml(response){
-    console.log('Replace Html');
-    console.log('--------------------------------------');
-    console.log(response);
+    //console.log('Replace Html');
+    //console.log('--------------------------------------');
+    //console.log(response);
     
     $(response.object.target).html(response.object.strOutput);
     

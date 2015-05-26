@@ -1,5 +1,6 @@
 var ServerX = function(url)
 {
+    
 	var callbacks = {};
 	var ws_url = url;
 	var conn;
@@ -12,6 +13,7 @@ var ServerX = function(url)
 	};
 
 	this.send = function(event_name, event_data){
+            
 		this.conn.send( JSON.stringify(event_data) );
 		return this;
 	};
@@ -22,7 +24,13 @@ var ServerX = function(url)
 			this.conn = new MozWebSocket(url);
 		else
                     if ( typeof(WebSocket) == 'function' )
-			this.conn = new WebSocket(url);
+                    {
+                        try{
+                            this.conn = new WebSocket(url);
+                        }catch(e){
+                            
+                        }
+                    }
 
                 if(this.conn){
                     this.conn.onmessage = function(evt){
@@ -47,4 +55,5 @@ var ServerX = function(url)
 			chain[i]( message );
 		}
 	};
+   
 };

@@ -40,12 +40,7 @@
     .mobile-menu {display:block;}
     .mobile-menu i {font-size:36px;}
     .main-mobile-menu {display:block;}
-    .onscreen {
-        top:20px !important;
-        left: 10px !important;
-        margin-top: 0 !important;
-        margin-left: 0px !important;
-    }
+   
     .sortable {min-height: 0; }
     .contextmenu-holder {
         top:-5px !important;

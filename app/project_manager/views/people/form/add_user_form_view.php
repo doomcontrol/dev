@@ -34,13 +34,3 @@
         </form>
     </div>
 </div>
-<script>
-    $(function(){
-        StepCtrl.Set('<?= $form_data['form_id']?>');
-        
-        SelBox.Init();
-        
-        
-        
-    });
-</script>

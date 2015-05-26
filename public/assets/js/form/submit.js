@@ -56,7 +56,7 @@ var SubmitForm = function(){
             
             params['classObj'] = form.data('class');
             params['classFunct'] = form.data('funct');
-            console.log(form.data('live'));
+            //console.log(form.data('live'));
             if(form.data('live') !== false){
                 AjaxCall(params, 'SendLive');
             } else {

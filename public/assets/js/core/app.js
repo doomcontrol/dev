@@ -1,9 +1,24 @@
 
-
+/**
+ * InlineEdit
+ * ------------------------------
+ * 
+ * @description Handle Inline edit functionality
+ * 
+ * @returns {InlineEdit}
+ */
 var InlineEdit = function(){
   
     var $O = this;
   
+    /**
+     * inlineEdit.Open
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @param {type} e
+     * @returns {undefined}
+     */
     this.Open = function(e){
       
         
@@ -46,6 +61,15 @@ var InlineEdit = function(){
         Data.targetMask.unbind().on('click', function(){ $O.close( Data ); });
     };
     
+    
+    /**
+     * inlineEdit.submit
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @param {type} Data
+     * @returns {undefined}
+     */
     this.submit = function(Data){
 
         var params = new Object();
@@ -66,7 +90,14 @@ var InlineEdit = function(){
         
     };
     
-    
+    /**
+     * inlineEdit.close
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @param {type} Data
+     * @returns {undefined}
+     */
     this.close = function( Data ){
         
         Data.targetInline.removeClass('active');
@@ -80,8 +111,25 @@ var InlineEdit = function(){
 };
 
 
+
+/**
+ * GridSortable
+ * -------------------------------
+ * 
+ * @description Handle Grid Sortable drag&move elements
+ * 
+ * @returns {GridSortable}
+ */
 var GridSortable = function (){
     
+    
+    /**
+     * gridSortable.Init
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @returns {undefined}
+     */
     this.Init = function(){
         if(isMobile === false){
             $( ".sortable" ).sortable({
@@ -111,60 +159,28 @@ var GridSortable = function (){
 };
 
 
+
+
+
 /**
- * STEP CONTROL
- * ----------------------------------------------------------
+ * ContextMenu
+ * ---------------------------------
  * 
- * @returns {StepControl}
+ * @description Handle Context Menu on elements
+ * 
+ * @returns {ContextMenu}
  */
-var StepControl = function(){
-    
-    var $O = this;
-    
-    this.Set = function(id){
-        
-        var formHolder = $('body').find('#'+id).closest('.form-holder');
-        var a = formHolder.find('.form-screen');
-        
-        a.on('click',function(){
-            
-            formHolder.addClass('active');
-            
-            var m = formHolder.find('.form-mask');
-            
-            var d = $(this).data('step');
-            
-            if(d === ""){ d = "step-1"; }
-            
-            formHolder.find('.'+d).addClass('active');
-            
-            formHolder.find('ul li a.main').on('click',function(){
-                
-                formHolder.find('ul li').removeClass('active');
-                formHolder.find('ul li a.main').removeClass('active');
-                $(this).addClass('active');
-                $(this).parent().addClass('active');
-            });
-            
-            m.unbind().on('click',function(){
-                formHolder.removeClass('active');
-                formHolder.find('.'+d).removeClass('active');
-                formHolder.find('ul li').removeClass('active');
-                formHolder.find('ul li a.main').removeClass('active');
-                
-                formHolder.find('ul li:nth-child(1)').addClass('active');
-            });
-            
-            
-        });
-    };
-};
-
-
-
 var ContextMenu = function(){
     
-    
+    /**
+     * Context.ClickAction
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @param {type} e
+     * @param {type} id
+     * @returns {Boolean}
+     */
     this.ClickAction = function( e, id ){
         
         var event = $(e);
@@ -177,10 +193,27 @@ var ContextMenu = function(){
     
 };
 
+
+
+
+/**
+ * PageMenu
+ * 
+ * @description Handle Page Menu
+ * 
+ * @returns {PageMenu}
+ */
 var PageMenu = function(){
   
     var $O = this;
   
+    /**
+     * pageMenu.Click
+     * ------------------------------
+     * 01.06.2015
+     * 
+   * @returns {undefined}
+   */
     this.Click = function(){
         var m = $('.mobile-menu');
         if(!m.length) return;
@@ -199,6 +232,13 @@ var PageMenu = function(){
         
     };
     
+    /**
+     * pageMenu.Swipe
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @returns {undefined}
+     */
     this.Swipe = function(){
        
        
@@ -224,6 +264,15 @@ var PageMenu = function(){
         }
     };
     
+    
+    /**
+     * pageMenu.OpenMenu
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @param {type} direction
+     * @returns {undefined}
+     */
     this.OpenMenu = function(direction){
         var w = $('body').find('.wrap');
         
@@ -255,10 +304,28 @@ var PageMenu = function(){
 };
 
 
+
+
+
+/**
+ * MainMenu
+ * -----------------------------------
+ * 
+ * @description Handle Main Menu
+ * 
+ * @returns {MainMenu}
+ */
 var MainMenu = function(){
   
     var $O = this;
     
+    /**
+     * mainMenu.Click
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @returns {undefined}
+     */
     this.Click = function(){
         var m = $('body').find('.main-mobile-menu');
         if(!m.length) return;
@@ -283,8 +350,26 @@ var MainMenu = function(){
 
 
 
+
+
+/**
+ * Bind
+ * -----------------------------------
+ * 
+ * @description Bind double tap
+ * 
+ * @returns {Bind}
+ */
 var Bind = function(){
     
+    /**
+     * bindEvent.touchDouble
+     * ------------------------------
+     * 01.06.2015
+     * 
+     * @param {type} e
+     * @returns {undefined}
+     */
     this.touchDouble = function(e){
         
         if(isMobile){
@@ -301,8 +386,118 @@ var Bind = function(){
 
 
 
+
+
+/**
+ * OnScreen
+ * -----------------------------------------
+ * 
+ * @description handle black pop up windows with forms
+ * 
+ * @returns {OnScreen}
+ */
+var OnScreen = function(){
+    
+    var onscreen = null;
+    
+    var self = this;
+    
+    /**
+     * Onscreen.Open
+     * ---------------------------
+     * 24.06.2015
+     * 
+     * @param {type} _id
+     * @returns {undefined}
+     */
+    this.Open  = function(_id){
+        
+        onscreen = $('body').find('#'+_id);
+        
+        var holder = onscreen.find('.onsc-tab-view-holder');
+        
+        if(holder.hasClass('custom-scrollbar')){
+            
+        } else {
+           
+            holder.addClass('custom-scrollbar');
+        }
+        
+        
+        if(onscreen.hasClass('active')){
+            this._hide();
+        }else{
+            this._show(1);
+        }
+        
+        this._click();
+        
+    };
+    
+    /**
+     * Onscreen._click
+     * ---------------------------
+     * 24.06.2015
+     * 
+     * @returns {undefined}
+     */
+    this._click = function(){
+        
+        onscreen.find('.onsc-tab-holder span').on('click', function(){
+            var index = ($(this).index()) + 1;
+            self._show(index);
+        });
+        
+    };
+    
+    
+    /**
+     * Onscreen._show
+     * ---------------------------
+     * 24.06.2015
+     * 
+     * @param {type} index
+     * @returns {undefined}
+     */
+    this._show = function(index){
+        onscreen.addClass('active');
+        onscreen.find('.onsc-tab-holder span').removeClass('active');
+        var activeTab = onscreen.find('.onsc-tab-holder span:nth-child('+index+')');
+        activeTab.addClass('active');
+        this._setTabData(activeTab.attr('rel'));
+    };
+    
+    
+    /**
+     * Onscreen._hide
+     * ---------------------------
+     * 24.06.2015
+     * 
+     * @returns {undefined}
+     */
+    this._hide = function(){
+        onscreen.removeClass('active');
+    };
+    
+    
+    /**
+     * Onscreen._setTabData
+     * ---------------------------
+     * 24.06.2015
+     * 
+     * @param {type} rel
+     * @returns {undefined}
+     */
+    this._setTabData = function(rel){
+        onscreen.find('.onsc-tab-data').removeClass('active');
+        onscreen.find('.onsc-tab-data[rel='+rel+']').addClass('active');
+    };
+};
+
+
+
+
 var FotItem = new FooterItems();
-var StepCtrl = new StepControl();
 var SelBox = new SelectBox();
 var SF = new SubmitForm();
 var Context = new ContextMenu();
@@ -312,6 +507,7 @@ var mainMenu = new MainMenu();
 var inlineEdit = new InlineEdit();
 var gridSortable = new GridSortable();
 var bindEvent = new Bind();
+var Onscreen = new OnScreen();
 
 $(function(){
     
@@ -326,12 +522,6 @@ $(function(){
     formatDate();
     
     reInit();
-    
-    
-    
-    
-
-
     
 });
 
@@ -352,37 +542,3 @@ function reInit(){
    
     
 }
-
-(function( win ){
-	var doc = win.document;
-	
-	// If there's a hash, or addEventListener is undefined, stop here
-	if( !location.hash && win.addEventListener ){
-		
-		//scroll to 1
-		window.scrollTo( 0, 1 );
-		var scrollTop = 1,
-			getScrollTop = function(){
-				return win.pageYOffset || doc.compatMode === "CSS1Compat" && doc.documentElement.scrollTop || doc.body.scrollTop || 0;
-			},
-		
-			//reset to 0 on bodyready, if needed
-			bodycheck = setInterval(function(){
-				if( doc.body ){
-					clearInterval( bodycheck );
-					scrollTop = getScrollTop();
-					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
-				}	
-			}, 15 );
-		
-		win.addEventListener( "load", function(){
-			setTimeout(function(){
-				//at load, if user hasn't scrolled more than 20 or so...
-				if( getScrollTop() < 20 ){
-					//reset to hide addr bar at onload
-					win.scrollTo( 0, scrollTop === 1 ? 0 : 1 );
-				}
-			}, 0);
-		} );
-	}
-})( this );

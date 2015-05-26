@@ -49,4 +49,4 @@
         <input type="submit" name="Save" value="Save" onclick="SF.Init('editUserForm<?=$user->getID()?>', false);" /> <span class="inline-cancel" ><i class="icon-remove"></i> Cancel</span>
     </div>
 </div>
-<script>SelBox.Init();</script>
+

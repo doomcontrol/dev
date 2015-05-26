@@ -50,8 +50,6 @@ class core {
         
         $this->predefine_helpers();
         
-       
-        
         $this->loadGuiText();
         
         \process\Resolve::ResolveProcess();

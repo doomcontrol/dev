@@ -12,6 +12,7 @@ $resource['css'][] = "template/app/css/select.css";
 $resource['css'][] = "css/contextmenu/jquery.cxmenu.css";
 $resource['css'][] = "template/app/css/responsive.css";
 $resource['css'][] = "css/wizard/wizard.css";
+
 //$resource['css'][] = "css/jquerymobile/jquery.mobile-1.4.5.min.css";
 
 
@@ -39,6 +40,7 @@ $resource['js'][] = "js/core/upload_manager.js";
 $resource['js'][] = "js/core/min.throbber.js";
 $resource['js'][] = "js/core/app.js";
 $resource['js'][] = "js/wizard/wizard.js";
+
 
 
 

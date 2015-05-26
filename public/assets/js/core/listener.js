@@ -7,7 +7,7 @@ function LivePost(response){
     } catch(err){}
     
     if(response.state === false){
-        console.log('ddd');
+        //console.log('ddd');
         AlertMessage(response.message);
     } else {
 
@@ -27,8 +27,8 @@ function LivePost(response){
  */
 function ListenerServer(retriveObject){
 
-    console.log('ListenerServer:');
-    console.log(retriveObject);
+    //console.log('ListenerServer:');
+    //console.log(retriveObject);
 
     var json  = null;
     var pid   = parseInt($.cookie('processId'));
@@ -46,7 +46,7 @@ function ListenerServer(retriveObject){
         }
         
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     try{
@@ -56,7 +56,7 @@ function ListenerServer(retriveObject){
         }
         
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     
@@ -67,7 +67,7 @@ function ListenerServer(retriveObject){
         }
         
     } catch(err){
-        console.log(err);
+        //console.log(err);
     }
     
     
@@ -76,7 +76,9 @@ function ListenerServer(retriveObject){
         return; 
     }
 
-  }catch(err){ console.log(err); }
+  }catch(err){ 
+      //console.log(err); 
+  }
 };
 
 
